@@ -26,5 +26,8 @@ export const personalData = await contentfulClient
 		'fields.name[match]': import.meta.env.NAME,
 	})
 	.then((response) => {
-		return TransformData(response.items[0]);
+		return {
+			...TransformData(response.items[0]),
+			avatar: response.items[0].fields.avatar.fields.file.url,
+		};
 	});
