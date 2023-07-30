@@ -1,7 +1,9 @@
 ---
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { Icon } from 'astro-icon';
-const { timeframe, title, description, url, tags, url_name } = Astro.props;
+import Tag from './Tag.astro';
+const { start, end, title, description, url, tags = [], url_name } = Astro.props;
+// Maybe add an option to not put start & end but just start?
 ---
 
 <div
@@ -9,7 +11,8 @@ const { timeframe, title, description, url, tags, url_name } = Astro.props;
 >
 	<div class="self-start justify-self-start">
 		<p class="text-text/50 text-base">
-			{timeframe}
+			{start}
+			{end && `- ${end}`}
 		</p>
 	</div>
 
@@ -18,7 +21,13 @@ const { timeframe, title, description, url, tags, url_name } = Astro.props;
 		<p class="text-sm text-text/70">
 			<Fragment set:html={documentToHtmlString(description)} />
 		</p>
-		<sub class="text-xs text-text/60">{tags}</sub>
+		<sub class="text-xs text-text/60">
+			{
+				tags.map((item) => {
+					return <Tag value={item} />;
+				})
+			}
+		</sub>
 	</div>
 
 	<div class="self-start justify-self-end">

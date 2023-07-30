@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import contentful from 'contentful';
 import type { PersonalData } from '../model/PersonalData';
 
@@ -14,8 +15,24 @@ export interface ContentfulEntity<T> {
 	fields: T;
 }
 
-export const TransformData = (data) => {
+const locales = 'en-US';
+const localeOptions = {
+	year: 'numeric',
+	month: 'short',
+};
+
+export const TransformData = (data: any) => {
+	if (data?.fields?.startDate) {
+		data.fields.startDate = new Date(data.fields.startDate).toLocaleDateString(locales, localeOptions);
+	}
+	if (data?.fields?.endDate) {
+		data.fields.endDate = new Date(data.fields.endDate).toLocaleDateString(locales, localeOptions);
+	}
 	return data.fields;
+};
+
+const sortByDate = (a: any, b: any) => {
+	return b.startDate - a.startDate;
 };
 
 export const personalData = await contentfulClient
@@ -26,8 +43,14 @@ export const personalData = await contentfulClient
 		'fields.name[match]': import.meta.env.NAME,
 	})
 	.then((response) => {
+		const personalData = TransformData(response.items[0]);
 		return {
-			...TransformData(response.items[0]),
-			avatar: response.items[0].fields.avatar.fields.file.url,
+			...personalData,
+			avatar: personalData.avatar.fields.file.url,
+			experience: personalData.experience.map((e) => TransformData(e)).sort(sortByDate),
+			education: personalData.education.map((e) => TransformData(e)).sort(sortByDate),
+			interests: personalData.interests.map((e) => TransformData(e)),
+			skills: personalData.skills.map((e) => TransformData(e)),
+			languages: personalData.languages.map((e) => TransformData(e)),
 		};
 	});

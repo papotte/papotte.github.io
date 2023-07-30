@@ -17,7 +17,8 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 				return (
 					<Card
 						title={item.position}
-						timeframe={`${item.startDate} - ${item.endDate}`}
+						start={item.startDate}
+						end={item.endDate}
 						description={item.description}
 						tags={item.tags}
 						url={item.website}
@@ -28,22 +29,23 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 		}
 	</AccordionLayout>
 
-	<AccordionLayout title={'Projects'} icon={'ion:md-build'}>
-		{
-			CONTENT.projects.map((item) => {
-				return (
-					<Card
-						title={item.title}
-						timeframe="2022-2023"
-						description={item.description}
-						tags={item.tech}
-						url={item.url}
-						url_name={'Open Project'}
-					/>
-				);
-			})
-		}
-	</AccordionLayout>
+	{
+		CONTENT.projects.length > 0 && (
+			<AccordionLayout title={'Projects'} icon={'ion:md-build'}>
+				{CONTENT.projects.map((item) => {
+					return (
+						<Card
+							title={item.title}
+							description={item.description}
+							tags={item.tech}
+							url={item.url}
+							url_name={'Open Project'}
+						/>
+					);
+				})}
+			</AccordionLayout>
+		)
+	}
 
 	<AccordionLayout title={'Education'} icon={'carbon:education'}>
 		{
@@ -51,9 +53,10 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 				return (
 					<Card
 						title={item.degree}
-						timeframe={`${item.startDate} - ${item.endDate}`}
+						start={item.startDate}
+						end={item.endDate}
 						description={item.description}
-						tags={[item.type]}
+						tags={item.courses}
 						url_name={item.institution}
 					/>
 				);
@@ -61,54 +64,58 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 		}
 	</AccordionLayout>
 
-	<AccordionLayout title={'Certifications'} icon={'carbon:certificate'}>
-		{
-			CONTENT.certificates.map((item) => {
-				return (
-					<Card
-						title={item.title}
-						timeframe={item.issued}
-						description={item.org}
-						tags={item.description}
-						url={item.url}
-						url_name={'View Certificate'}
-					/>
-				);
-			})
-		}
-	</AccordionLayout>
+	{
+		CONTENT.projects.length > 0 && (
+			<AccordionLayout title={'Certifications'} icon={'carbon:certificate'}>
+				{CONTENT.certificates.map((item) => {
+					return (
+						<Card
+							title={item.title}
+							start={item.issued}
+							description={item.org}
+							tags={item.description}
+							url={item.url}
+							url_name={'View Certificate'}
+						/>
+					);
+				})}
+			</AccordionLayout>
+		)
+	}
 
-	<AccordionLayout title={'Blogs/Writings'} icon={'ic:round-edit-note'}>
-		{
-			CONTENT.blogs.map((item) => {
-				return (
-					<Card
-						title={item.title}
-						timeframe={item.date}
-						description={item.description}
-						tags=""
-						url={item.url}
-						url_name={item.publisher}
-					/>
-				);
-			})
-		}
-	</AccordionLayout>
+	{
+		CONTENT.projects.length > 0 && (
+			<AccordionLayout title={'Blogs/Writings'} icon={'ic:round-edit-note'}>
+				{CONTENT.blogs.map((item) => {
+					return (
+						<Card
+							title={item.title}
+							start={item.date}
+							description={item.description}
+							tags=""
+							url={item.url}
+							url_name={item.publisher}
+						/>
+					);
+				})}
+			</AccordionLayout>
+		)
+	}
 
-	<AccordionLayout title={'Achievements'} icon={'mdi:trophy-award'}>
-		{
-			CONTENT.achievements.map((item) => {
-				return (
-					<Card title={item.title} timeframe={item.year} description={item.decription} tags="" url="#" url_name="" />
-				);
-			})
-		}
-	</AccordionLayout>
+	{
+		CONTENT.projects.length > 0 && (
+			<AccordionLayout title={'Achievements'} icon={'mdi:trophy-award'}>
+				{CONTENT.achievements.map((item) => {
+					return <Card title={item.title} start={item.year} description={item.decription} url="#" url_name="" />;
+				})}
+			</AccordionLayout>
+		)
+	}
 
 	<AccordionLayout title={'Contact'} icon={'ri:contacts-book-fill'}>
 		{
 			CONTENT.contact.map((item) => {
-				return <Card title={''} timeframe="" description="" tags="" url={item.source} url_name={item.source_name} />;
+				return <Card title={''} timeframe="" description="" url={item.source} url_name={item.source_name} />;
 			})
 		}
 	</AccordionLayout>
