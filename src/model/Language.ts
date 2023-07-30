@@ -1,5 +1,5 @@
 export interface Language {
-  name: string
-  code: string
-  fluency: string
+	name: string;
+	code: string;
+	fluency: string;
 }

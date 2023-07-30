@@ -1,1 +1,1 @@
-{"runtime":"nodejs20.x","handler":"dist/entry.js","launcherType":"Nodejs"}
+{ "runtime": "nodejs20.x", "handler": "dist/entry.js", "launcherType": "Nodejs" }
