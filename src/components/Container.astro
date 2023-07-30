@@ -4,11 +4,12 @@ import AccordionLayout from '../layouts/AccordionLayout.astro';
 import Card from './Card.astro';
 import type { JobExperience } from '../model/JobExperience';
 import type { Education } from '../model/Education';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 ---
 
 <ul class="shadow-box">
 	<AccordionLayout title={'About'} icon={'mdi:account-badge-outline'}>
-		{CONTENT.about}
+		<Fragment set:html={documentToHtmlString(CONTENT.about)} />
 	</AccordionLayout>
 	<AccordionLayout title={'Work'} icon={'ic:baseline-work-outline'}>
 		{

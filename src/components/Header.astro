@@ -1,6 +1,5 @@
 ---
 import * as CONTENT from '../pages/content';
-const avatar = CONTENT.avatar;
 ---
 
 <!-- Hero section -->
@@ -8,7 +7,7 @@ const avatar = CONTENT.avatar;
 	<article class="grid grid-cols-3 grid-rows-1 place-items-center w-[98vw] max-w-2xl">
 		<div class="rounded-full border-primary self-end shadow-2xl md:w-24 w-20 aspect-square">
 			<img
-				src="{{ avatar | url }}"
+				src={CONTENT.avatar}
 				alt="Avatar"
 				class="object-cover w-full h-full rounded-full grayscale-[50] hover:grayscale-0"
 			/>
