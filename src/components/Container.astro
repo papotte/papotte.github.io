@@ -17,8 +17,8 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 				return (
 					<Card
 						title={item.position}
-						start={item.startDate}
-						end={item.endDate}
+						start={item.start}
+						end={item.end}
 						description={item.description}
 						tags={item.tags}
 						url={item.website}
@@ -53,8 +53,8 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 				return (
 					<Card
 						title={item.degree}
-						start={item.startDate}
-						end={item.endDate}
+						start={item.start}
+						end={item.end}
 						description={item.description}
 						tags={item.courses}
 						url_name={item.institution}

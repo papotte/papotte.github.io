@@ -4,6 +4,6 @@ import { buttonColorLookup } from '../lib/style-helper';
 const { value, color = 'accent' } = Astro.props;
 ---
 
-<span class={`text-xs font-medium mr-2 px-2.5 py-0.5 rounded ${buttonColorLookup[color]}`}>
-	{value}
+<span class={`text-xs font-medium px-2.5 py-0.5 rounded ${buttonColorLookup[color]}`}>
+  {value}
 </span>

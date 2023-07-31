@@ -16,17 +16,19 @@ export interface ContentfulEntity<T> {
 }
 
 const locales = 'en-US';
-const localeOptions = {
+const localeOptions: Intl.DateTimeFormatOptions = {
 	year: 'numeric',
 	month: 'short',
 };
 
 export const TransformData = (data: any) => {
 	if (data?.fields?.startDate) {
-		data.fields.startDate = new Date(data.fields.startDate).toLocaleDateString(locales, localeOptions);
+		data.fields.start = new Date(data.fields.startDate).toLocaleDateString(locales, localeOptions);
+		data.fields.startDate = new Date(data.fields.startDate);
 	}
 	if (data?.fields?.endDate) {
-		data.fields.endDate = new Date(data.fields.endDate).toLocaleDateString(locales, localeOptions);
+		data.fields.end = new Date(data.fields.endDate).toLocaleDateString(locales, localeOptions);
+		data.fields.endDate = new Date(data.fields.endDate);
 	}
 	return data.fields;
 };

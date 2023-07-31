@@ -1,9 +1,13 @@
+import type { EntryFieldTypes } from 'contentful';
+
 export interface JobExperience {
-	company: string;
-	position: string;
-	startDate: Date;
-	endDate?: Date;
-	description: string;
-	website: string;
+	company: EntryFieldTypes.Text;
+	position: EntryFieldTypes.Text;
+	start: EntryFieldTypes.Text;
+	startDate: EntryFieldTypes.Date;
+	end?: EntryFieldTypes.Text;
+	endDate?: EntryFieldTypes.Date;
+	description: EntryFieldTypes.Text;
+	website: EntryFieldTypes.Text;
 	tags: string[];
 }

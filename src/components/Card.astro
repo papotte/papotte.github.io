@@ -7,37 +7,37 @@ const { start, end, title, description, url, tags = [], url_name } = Astro.props
 ---
 
 <div
-	class="grid grid-cols-3 grid-rows-1 w-full p-2 place-items-center border-b-[1px] border-dashed py-8 border-text/25"
+  class="grid grid-cols-3 grid-rows-1 w-full p-2 place-items-center border-b-[1px] border-dashed py-8 border-text/25"
 >
-	<div class="self-start justify-self-start">
-		<p class="text-text/50 text-base">
-			{start}
-			{end && `- ${end}`}
-		</p>
-	</div>
+  <div class="self-start justify-self-start">
+    <p class="text-text/50 text-base">
+      {start}
+      {end && `- ${end}`}
+    </p>
+  </div>
 
-	<div class="self-start justify-self-start text-left">
-		<p class="text-lg text-text/80">{title}</p>
-		<p class="text-sm text-text/70">
-			<Fragment set:html={documentToHtmlString(description)} />
-		</p>
-		<sub class="text-xs text-text/60">
-			{
-				tags.map((item) => {
-					return <Tag value={item} />;
-				})
-			}
-		</sub>
-	</div>
+  <div class="self-start justify-self-start text-left">
+    <p class="text-lg text-text/80">{title}</p>
+    <p class="text-sm text-text/70">
+      <Fragment set:html={documentToHtmlString(description)} />
+    </p>
+    <sub class="flex flex-wrap gap-2 text-xs text-text/60">
+      {
+        tags.map((item: string) => {
+          return <Tag value={item} />;
+        })
+      }
+    </sub>
+  </div>
 
-	<div class="self-start justify-self-end">
-		<a
-			href={url}
-			target="_blank"
-			class="text-base text-right text-text/60 hover:text-text/80 flex justify-center items-center"
-		>
-			{url_name}
-			{url !== '#' && <Icon name="icon-park-outline:unlink" class="w-4 h-4 ml-2" />}
-		</a>
-	</div>
+  <div class="self-start justify-self-end">
+    <a
+      href={url}
+      target="_blank"
+      class="text-base text-right text-text/60 hover:text-text/80 flex justify-center items-center"
+    >
+      {url_name}
+      {url !== '#' && <Icon name="icon-park-outline:unlink" class="w-4 h-4 ml-2" />}
+    </a>
+  </div>
 </div>
