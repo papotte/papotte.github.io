@@ -1,0 +1,17 @@
+@mixin query-print {
+  @media print {
+    @content;
+  }
+}
+
+@mixin kjhealy {
+  @at-root .kjhealy #{&} {
+    @content;
+  }
+}
+
+@mixin davewhipp {
+  @at-root .davewhipp #{&} {
+    @content;
+  }
+}
