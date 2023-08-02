@@ -10,4 +10,5 @@ export interface JobExperience {
 	description: EntryFieldTypes.Text;
 	website: EntryFieldTypes.Text;
 	tags: string[];
+	tasks?: string[];
 }

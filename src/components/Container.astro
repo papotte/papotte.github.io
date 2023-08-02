@@ -5,18 +5,9 @@ import Card from './Card.astro';
 import type { JobExperience } from '../model/JobExperience';
 import type { Education } from '../model/Education';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import { IconMap } from '../lib/style-helper';
 
 const SocialLinks = Object.entries<string>(CONTENT.socialLinks);
-
-const IconMap = {
-	Email: 'mdi-light:email',
-	github: 'mdi:github',
-	linkedin: 'mdi:linkedin',
-	facebook: 'mdi:facebook',
-	twitter: 'mdi:twitter',
-	instagram: 'mdi:instagram',
-	telegram: 'mdi:telegram',
-};
 ---
 
 <ul class="shadow-box">
@@ -118,7 +109,8 @@ const IconMap = {
 		CONTENT.projects.length > 0 && (
 			<AccordionLayout title={'Achievements'} icon={'mdi:trophy-award'}>
 				{CONTENT.achievements.map((item) => {
-					return <Card title={item.title} start={item.year} description={item.decription} url="#" url_name="" />;
+					return;
+					<Card title={item.title} start={item.year} description={item.decription} url="#" url_name="" />;
 				})}
 			</AccordionLayout>
 		)
@@ -127,12 +119,14 @@ const IconMap = {
 	<AccordionLayout title={'Contact'} icon={'ri:contacts-book-fill'}>
 		{
 			CONTENT.contact.map((item) => {
-				return <Card icon={IconMap[item.source_name]} url={item.source} url_name={item.source_name} />;
+				return;
+				<Card icon={IconMap[item.source_name]} url={item.source} url_name={item.source_name} />;
 			})
 		}
 		{
 			SocialLinks.map(([name, url]) => {
-				return <Card icon={IconMap[name]} url={url} url_name={name} />;
+				return;
+				<Card icon={IconMap[name]} url={url} url_name={name} />;
 			})
 		}
 	</AccordionLayout>

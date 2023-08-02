@@ -1,0 +1,92 @@
+
+.main {
+  font: normal normal 400;
+  font-size: 12px;
+  font-family: Avenir, Verdana, sans-serif;
+  margin-top: 1em;
+  margin-left: 1em;
+  line-height: 1.5em;
+  background: #fff;
+
+  .a4 {
+    @apply container py-16 px-12 mx-auto drop-shadow-2xl print:h-[842px] print:drop-shadow-none;
+    width: 595px;
+    background: #fff;
+  }
+
+
+  .header {
+    @apply flex justify-between items-end mb-10;
+    h1 {
+      @apply mb-2;
+    }
+
+    .data {
+      @apply flex flex-col italic text-tertiary-500;
+
+      > * {
+        @apply text-end justify-end;
+      }
+
+      p {
+        @apply flex flex-row gap-1;
+
+        svg {
+          @apply h-4 w-4;
+        }
+      }
+    }
+  }
+
+  .section {
+    @apply mt-2 mb-8;
+
+    > .title {
+      @apply text-primary-700 grid grid-cols-6 items-end gap-4;
+
+      &:before {
+        @apply bg-primary-700 col-span-1 mb-1;
+        content: ' ';
+        height: 6px;
+      }
+
+      > h3 {
+        @apply col-span-5;
+      }
+    }
+
+    > .block {
+      @apply grid grid-cols-6 gap-4 my-2;
+
+      > .date {
+        @apply text-right col-span-1;
+      }
+
+      > .information {
+        @apply col-span-5;
+
+        > .title {
+          > span {
+            &:after {
+              content: ', ';
+            }
+
+            &:last-child:after {
+              content: '';
+            }
+          }
+        }
+
+        > .description {;
+
+          ul {
+            @apply list-inside marker:text-primary list-[circle];
+            p {
+              display: unset;
+            }
+          }
+        }
+      }
+    }
+  }
+}

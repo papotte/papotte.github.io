@@ -2,8 +2,9 @@ import { personalData } from '../lib/contentful';
 
 // Personal Information --> #hero section
 export const name = personalData.displayName;
+export const contactInfo = personalData.contact;
 export const designation = personalData.title;
-export const location = `${personalData.address.city}, ${personalData.address.country}`;
+export const location = personalData.location;
 export const pronouns = personalData.pronouns;
 export const website = personalData.website;
 export const avatar = personalData.avatar;

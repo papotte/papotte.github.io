@@ -1,0 +1,113 @@
+---
+import { Education } from '../../model/Education';
+import * as CONTENT from '../content';
+import './cv.scss';
+import { Icon } from 'astro-icon';
+import { IconMap } from '../../lib/style-helper';
+import { contactInfo } from '../content';
+import { JobExperience } from '../../model/JobExperience';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
+console.log(CONTENT.location);
+const contactInfo = [
+	{
+		icon: IconMap['Email'],
+		label: CONTENT.contactInfo.email,
+	},
+	{
+		icon: IconMap['phone'],
+		label: CONTENT.contactInfo.phone,
+	},
+	{
+		icon: IconMap['website'],
+		label: CONTENT.website,
+	},
+];
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{CONTENT.name}'s CV</title>
+	</head>
+	<body>
+		<div class="main">
+			<div class="a4">
+				<div class="header">
+					<div class="title">
+						<h1>{CONTENT.name}</h1>
+						<p>{CONTENT.designation}</p>
+					</div>
+
+					<div class="data">
+						<p>{CONTENT.location.city}, {CONTENT.location.country}</p>
+						{
+							contactInfo.map(({ icon, label }) => {
+								return (
+									<p class="contact">
+										{icon && <Icon name={icon} />}
+										{label}
+									</p>
+								);
+							})
+						}
+					</div>
+				</div>
+
+				<div class="section">
+					<div class="title"><h3>Work Experience</h3></div>
+					{
+						CONTENT.work.map((job: JobExperience) => {
+							return (
+								<div class="block">
+									<div class="date">
+										{job.start} – {job.end || 'present'}
+									</div>
+									<div class="information">
+										<div class="title">
+											<span class="font-bold">{job.position}</span>
+											<span>{job.company}</span>
+											<span>{job.location?.city}</span>
+											<span>{job.location?.country}</span>
+										</div>
+
+										<div class="description">
+											<Fragment set:html={documentToHtmlString(job.content)} />
+										</div>
+									</div>
+								</div>
+							);
+						})
+					}
+				</div>
+				<div class="section">
+					<div class="title"><h3>Education</h3></div>
+					{
+						CONTENT.education.map((edu: Education) => {
+							return (
+								<div class="block">
+									<div class="date">
+										{edu.start} – {edu.end}
+									</div>
+									<div class="information">
+										<div class="title">
+											<span class="font-bold">{edu.degree}</span>
+
+											<span>{edu.institution}</span>
+											<span>
+												<i>{edu.type}</i>
+											</span>
+										</div>
+									</div>
+								</div>
+							);
+						})
+					}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

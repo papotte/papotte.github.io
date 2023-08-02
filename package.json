@@ -25,6 +25,7 @@
     "astro-icon": "^0.8.1",
     "class-transformer": "^0.5.1",
     "contentful": "^10.3.6",
+    "nodejs-geolocation": "^2.2.1",
     "prisma": "^5.0.0",
     "reflect-metadata": "^0.1.13",
     "sass": "^1.64.2",

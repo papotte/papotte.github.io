@@ -12,6 +12,7 @@ export interface PersonalData {
 	displayName: string;
 	pronouns: string;
 	website: string;
+	email: string;
 	tagline: string;
 	title: string;
 	bio: string;
