@@ -7,8 +7,12 @@ import { IconMap } from '../../lib/style-helper';
 import { contactInfo } from '../content';
 import { JobExperience } from '../../model/JobExperience';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import { Language } from '../../model/Language';
+import { TechnicalSkills } from '../../model/TechnicalSkills';
+import type { Interests } from '../../model/Interests';
+import { Project } from '../../model/Project';
+import Print from '../../components/Print.astro';
 
-console.log(CONTENT.location);
 const contactInfo = [
 	{
 		icon: IconMap['Email'],
@@ -23,6 +27,23 @@ const contactInfo = [
 		label: CONTENT.website,
 	},
 ];
+
+const skillCategories: Map<string, TechnicalSkills[]> = CONTENT.skills.reduce((acc, item: TechnicalSkills) => {
+	const keywords = item.keywords?.map((keyword) => keyword.trim()) || [];
+	keywords.forEach((keyword) => {
+		if (keyword === 'Development') {
+			return;
+		}
+		if (acc.has(keyword)) {
+			acc.set(keyword, [...acc.get(keyword), item]);
+		} else {
+			acc.set(keyword, [item]);
+		}
+	});
+	return acc;
+}, new Map());
+
+const skillList = Array.from(skillCategories.entries());
 ---
 
 <html lang="en">
@@ -35,6 +56,9 @@ const contactInfo = [
 	</head>
 	<body>
 		<div class="main">
+			<div class="sticky top-4 text-end print:hidden">
+				<Print />
+			</div>
 			<div class="a4">
 				<div class="header">
 					<div class="title">
@@ -70,8 +94,8 @@ const contactInfo = [
 										<div class="title">
 											<span class="font-bold">{job.position}</span>
 											<span>{job.company}</span>
-											<span>{job.location?.city}</span>
-											<span>{job.location?.country}</span>
+											{job.location?.city && <span>{job.location.city}</span>}
+											{job.location?.country && <span>{job.location.country}</span>}
 										</div>
 
 										<div class="description">
@@ -90,22 +114,99 @@ const contactInfo = [
 							return (
 								<div class="block">
 									<div class="date">
-										{edu.start} – {edu.end}
+										{edu.start && `${edu.start} –`} {edu.end}
 									</div>
 									<div class="information">
 										<div class="title">
 											<span class="font-bold">{edu.degree}</span>
+											<span class="italic">{edu.institution}</span>
+											{edu.location?.city && <span>{edu.location.city}</span>}
+											{edu.location?.country && <span>{edu.location.country}</span>}
+										</div>
 
-											<span>{edu.institution}</span>
-											<span>
-												<i>{edu.type}</i>
-											</span>
+										<div class="description">
+											<Fragment set:html={documentToHtmlString(edu.description)} />
 										</div>
 									</div>
 								</div>
 							);
 						})
 					}
+				</div>
+				<div class="section">
+					<div class="title"><h3>Language Skills</h3></div>
+					{
+						CONTENT.languages.map((item: Language) => {
+							return (
+								<div class="block">
+									<div class="date">{item.name}</div>
+									<div class="information">
+										<div class="title">
+											<span class="font-bold">{item.fluency}</span>
+										</div>
+									</div>
+								</div>
+							);
+						})
+					}
+				</div>
+				<div class="section">
+					<div class="title"><h3>IT Skills</h3></div>
+					{
+						skillList.map(([label, item]) => {
+							return (
+								<div class="block">
+									<div class="date">{label}</div>
+									<div class="information">
+										<div class="title">
+											{item.map((skill) => (
+												<span>{skill.name}</span>
+											))}
+										</div>
+									</div>
+								</div>
+							);
+						})
+					}
+				</div>
+				<div class="section">
+					<div class="title"><h3>Projects</h3></div>
+					{
+						CONTENT.projects.map((item: Project) => {
+							return (
+								<div class="block">
+									<div class="date">
+										{item.start && `${item.start} –`} {item.end}
+									</div>
+									<div class="information">
+										<div class="title">
+											<span class="font-bold">{item.title}</span>
+											<span class="italic">{item.team}</span>
+										</div>
+
+										<div class="description columns-2">
+											<Fragment set:html={documentToHtmlString(item.description)} />
+										</div>
+									</div>
+								</div>
+							);
+						})
+					}
+				</div>
+				<div class="section">
+					<div class="title"><h3>Interests</h3></div>
+					<div class="block">
+						<div class="date"></div>
+						<div class="information">
+							<div class="title">
+								{
+									CONTENT.interests.map((item: Interests) => {
+										return <span>{item.name}</span>;
+									})
+								}
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

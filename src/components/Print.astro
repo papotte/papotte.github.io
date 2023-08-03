@@ -1,0 +1,26 @@
+---
+import { Icon } from 'astro-icon';
+const { color = 'secondary' } = Astro.props;
+---
+
+<print-button>
+	<button
+		type="button"
+		class={`text-white bg-${color} hover:bg-${color}-800 focus:ring-4 focus:outline-none focus:ring--300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2`}
+	>
+		<Icon name="mdi:printer" class="w-8 h-8" />
+	</button>
+</print-button>
+<script>
+	class PrintButton extends HTMLElement {
+		constructor() {
+			super();
+			const button = this.querySelector('button');
+			button.addEventListener('click', () => {
+				window.print();
+			});
+		}
+	}
+
+	customElements.define('print-button', PrintButton);
+</script>

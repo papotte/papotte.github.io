@@ -1,92 +1,84 @@
-
 .main {
-  font: normal normal 400;
-  font-size: 12px;
-  font-family: Avenir, Verdana, sans-serif;
-  margin-top: 1em;
-  margin-left: 1em;
-  line-height: 1.5em;
-  background: #fff;
+	@apply relative m-4 bg-white print:m-0;
+	font-size: 12px;
+	font-family: Avenir, Verdana, sans-serif;
+	line-height: 1.5em;
 
-  .a4 {
-    @apply container py-16 px-12 mx-auto drop-shadow-2xl print:h-[842px] print:drop-shadow-none;
-    width: 595px;
-    background: #fff;
-  }
+	.a4 {
+		@apply container mx-auto w-[595px] bg-white px-12 py-16 drop-shadow-2xl print:w-full print:drop-shadow-none;
+	}
 
+	.header {
+		@apply mb-10 flex items-end justify-between;
+		h1 {
+			@apply mb-2;
+		}
 
-  .header {
-    @apply flex justify-between items-end mb-10;
-    h1 {
-      @apply mb-2;
-    }
+		.data {
+			@apply flex flex-col italic text-tertiary-500;
 
-    .data {
-      @apply flex flex-col italic text-tertiary-500;
+			> * {
+				@apply justify-end text-end;
+			}
 
-      > * {
-        @apply text-end justify-end;
-      }
+			p {
+				@apply flex flex-row gap-1;
 
-      p {
-        @apply flex flex-row gap-1;
+				svg {
+					@apply h-4 w-4;
+				}
+			}
+		}
+	}
 
-        svg {
-          @apply h-4 w-4;
-        }
-      }
-    }
-  }
+	.section {
+		@apply mb-8 mt-2;
 
-  .section {
-    @apply mt-2 mb-8;
+		> .title {
+			@apply grid grid-cols-6 items-end gap-4 text-primary-700;
 
-    > .title {
-      @apply text-primary-700 grid grid-cols-6 items-end gap-4;
+			&:before {
+				@apply col-span-1 mb-1 bg-primary-700;
+				content: ' ';
+				height: 6px;
+			}
 
-      &:before {
-        @apply bg-primary-700 col-span-1 mb-1;
-        content: ' ';
-        height: 6px;
-      }
+			> h3 {
+				@apply col-span-5;
+			}
+		}
 
-      > h3 {
-        @apply col-span-5;
-      }
-    }
+		> .block {
+			@apply my-2 grid grid-cols-6 gap-4;
 
-    > .block {
-      @apply grid grid-cols-6 gap-4 my-2;
+			> .date {
+				@apply col-span-1 text-right;
+			}
 
-      > .date {
-        @apply text-right col-span-1;
-      }
+			> .information {
+				@apply col-span-5;
 
-      > .information {
-        @apply col-span-5;
+				> .title {
+					> span {
+						&:after {
+							content: ', ';
+						}
 
-        > .title {
-          > span {
-            &:after {
-              content: ', ';
-            }
+						&:last-child:after {
+							content: '';
+						}
+					}
+				}
 
-            &:last-child:after {
-              content: '';
-            }
-          }
-        }
-
-        > .description {;
-
-          ul {
-            @apply list-inside marker:text-primary list-[circle];
-            p {
-              display: unset;
-            }
-          }
-        }
-      }
-    }
-  }
+				> .description {
+					ul {
+						@apply list-[circle] pl-4 marker:text-primary;
+						p {
+							display: unset;
+						}
+					}
+				}
+			}
+		}
+	}
 }

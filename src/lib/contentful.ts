@@ -32,14 +32,13 @@ export const TransformData = async (data: any) => {
 		data.fields.endDate = new Date(data.fields.endDate);
 	}
 	if (data?.fields.location) {
-		console.log(data.fields.location);
 		data.fields.location = await Geolocation.getAddress(data.fields.location);
 	}
 	return data.fields;
 };
 
-const sortByDate = (a: any, b: any) => {
-	return b.startDate - a.startDate;
+const sortBy = (field: string) => (a: any, b: any) => {
+	return b[field] - a[field];
 };
 
 export const personalData = await contentfulClient
@@ -56,13 +55,15 @@ export const personalData = await contentfulClient
 		const interests = await Promise.all(personalData.interests.map((e) => TransformData(e)));
 		const skills = await Promise.all(personalData.skills.map((e) => TransformData(e)));
 		const languages = await Promise.all(personalData.languages.map((e) => TransformData(e)));
+		const projects = await Promise.all(personalData.projects.map((e) => TransformData(e)));
 		return {
 			...personalData,
 			avatar: personalData.avatar.fields.file.url,
-			experience: experience.sort(sortByDate),
-			education: education.sort(sortByDate),
+			experience: experience.sort(sortBy('startDate')),
+			education: education.sort(sortBy('endDate')),
+			projects: projects.sort(sortBy('endDate')),
 			interests: interests,
-			skills: skills,
+			skills: skills.sort(sortBy('proficiency')),
 			languages: languages,
 		};
 	});

@@ -68,7 +68,7 @@ const SocialLinks = Object.entries<string>(CONTENT.socialLinks);
 	</AccordionLayout>
 
 	{
-		CONTENT.projects.length > 0 && (
+		CONTENT.certificates.length > 0 && (
 			<AccordionLayout title={'Certifications'} icon={'carbon:certificate'}>
 				{CONTENT.certificates.map((item) => {
 					return (
@@ -87,7 +87,7 @@ const SocialLinks = Object.entries<string>(CONTENT.socialLinks);
 	}
 
 	{
-		CONTENT.projects.length > 0 && (
+		CONTENT.blogs.length > 0 && (
 			<AccordionLayout title={'Blogs/Writings'} icon={'ic:round-edit-note'}>
 				{CONTENT.blogs.map((item) => {
 					return (
@@ -106,7 +106,7 @@ const SocialLinks = Object.entries<string>(CONTENT.socialLinks);
 	}
 
 	{
-		CONTENT.projects.length > 0 && (
+		CONTENT.achievements.length > 0 && (
 			<AccordionLayout title={'Achievements'} icon={'mdi:trophy-award'}>
 				{CONTENT.achievements.map((item) => {
 					return;

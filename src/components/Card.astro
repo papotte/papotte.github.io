@@ -11,8 +11,8 @@ const { start, end, title, description, url, tags = [], url_name, icon } = Astro
 >
 	<div class="self-start justify-self-start">
 		<p class="text-text/50 text-base">
-			{start}
-			{end && `- ${end}`}
+			{start && `${start} – `}
+			{end}
 		</p>
 	</div>
 
@@ -22,11 +22,7 @@ const { start, end, title, description, url, tags = [], url_name, icon } = Astro
 			<Fragment set:html={documentToHtmlString(description)} />
 		</p>
 		<sub class="flex flex-wrap gap-2 text-xs text-text/60">
-			{
-				tags.map((item: string) => {
-					return <Tag value={item} />;
-				})
-			}
+			{tags.map((item: string) => <Tag value={item} />)}
 		</sub>
 	</div>
 

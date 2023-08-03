@@ -6,6 +6,7 @@ import type { JobExperience } from './JobExperience';
 import type { Language } from './Language';
 import type { SocialMedia } from './SocialMedia';
 import type { TechnicalSkills } from './TechnicalSkills';
+import type { Project } from './Project';
 
 export interface PersonalData {
 	name: string;
@@ -21,6 +22,7 @@ export interface PersonalData {
 	contact: Contact;
 	experience: JobExperience[];
 	education: Education[];
+	projects: Project[];
 	languages: Language[];
 	skills: TechnicalSkills[];
 	interests: Interests[];

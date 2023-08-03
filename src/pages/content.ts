@@ -17,7 +17,7 @@ export const about = personalData.bio;
 export const work = personalData.experience;
 
 // Projects --> #project section
-export const projects = [];
+export const projects = personalData.projects;
 
 // Education --> #education section
 export const education = personalData.education;

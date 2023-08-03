@@ -1,14 +1,12 @@
 import type { EntryFieldTypes } from 'contentful';
 
-export interface JobExperience {
-	company: EntryFieldTypes.Text;
-	position: EntryFieldTypes.Text;
+export interface Project {
+	organization: EntryFieldTypes.Text;
+	title: EntryFieldTypes.Text;
+	team: EntryFieldTypes.Text;
 	start: EntryFieldTypes.Text;
 	startDate: EntryFieldTypes.Date;
 	end?: EntryFieldTypes.Text;
 	endDate?: EntryFieldTypes.Date;
 	description: EntryFieldTypes.RichText;
-	website: EntryFieldTypes.Text;
-	tags: string[];
-	tasks?: string[];
 }
