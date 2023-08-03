@@ -1,11 +1,10 @@
 ---
-import Container from '@components/Container.astro';
-import Footer from '@components/Footer.astro';
-import Header from '@components/Header.astro';
-import * as CONTENT from '@content';
+import NavBar from '@components/NavBar.astro';
+import { name, data } from '@content';
+import Jumbotron from 'src/components/Jumbotron.astro';
 ---
 
-<html lang="en">
+<html lang="en" data-theme="light">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -14,35 +13,14 @@ import * as CONTENT from '@content';
 		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>CV | {CONTENT.name}</title>
+		<title>CV | {name}</title>
 	</head>
 	<body class="bg-background text-text flex flex-col min-h-screen">
-		<Header />
-
-		<!-- Bar Effect -->
-		<article class="mx-auto h-fit max-w-3xl w-[95vw] flex flex-nowrap bg-slate-400">
-			<div class="bg-primary-900 hover:scale-x-[2] w-full h-1.5" id="one"></div>
-			<div class="bg-accent-900 hover:scale-x-[2] w-full h-1.5" id="two"></div>
-			<div class="bg-secondary-900 hover:scale-x-[2] w-full h-1.5" id="three"></div>
-		</article>
-
-		<main class="mx-auto flex-grow max-h-[90vh] md:max-h-[70vh] max-w-3xl overflow-y-scroll grid gap-5 p-5 w-[95vw]">
-			<Container />
-		</main>
-
-		<Footer />
+		<NavBar />
+		<Jumbotron title={data.tagline} description={data.bio} />
 	</body>
 </html>
 
-<style is:global>
-	* {
-		transition: 350ms ease-in-out;
-		font-family: 'Manrope', sans-serif;
-	}
-
-	@media only screen and (max-width: 480px) {
-		* {
-			font-size: 12px;
-		}
-	}
-</style>
+<script>
+	import 'flowbite';
+</script>

@@ -1,4 +1,4 @@
-import { personalData } from '../lib/contentful';
+import { personalData } from '@lib/contentful';
 
 // Personal Information --> #hero section
 export const name = personalData.displayName;
@@ -8,6 +8,8 @@ export const location = personalData.location;
 export const pronouns = personalData.pronouns;
 export const website = personalData.website;
 export const avatar = personalData.avatar;
+
+export const data = personalData;
 
 console.log(personalData);
 

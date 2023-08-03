@@ -47,6 +47,7 @@
     "prettier": "^3.0.1",
     "prettier-plugin-astro": "^0.11.0",
     "prettier-plugin-css-order": "^2.0.0",
-    "prettier-plugin-tailwindcss": "^0.4.1"
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "tw-colors": "^1.2.6"
   }
 }

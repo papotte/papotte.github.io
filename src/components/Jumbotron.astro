@@ -1,0 +1,36 @@
+---
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
+import Icon from 'astro-icon';
+import * as CONTENT from 'src/pages/content';
+const { title, description } = Astro.props;
+---
+
+<section class="">
+	<div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+		<h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-justify md:text-5xl lg:text-6xl">
+			{title}
+		</h1>
+		<div
+			class="my-8 text-lg font-normal text-justify lg:text-xl flex flex-col-reverse md:flex-row gap-x-24 gap-y-8 items-center"
+		>
+			<div class="grow">
+				<Fragment set:html={documentToHtmlString(description)} />
+			</div>
+			<div class="">
+				<div class="border-primary self-end w-48 md:w-96">
+					<img src="dev-cat.svg" alt="Avatar" class="object-cover w-full h-full" />
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0 sm:space-x-4">
+			<a
+				href="#contact"
+				class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center rounded-lg bg-primary hover:bg-primary-800 focus:ring-4 focus:ring-primary-300"
+			>
+				Contact me
+				<Icon name="mdi:arrow-down" class="w-6 h-6 ml-2" />
+			</a>
+		</div>
+	</div>
+</section>
