@@ -41,6 +41,9 @@ module.exports = {
 				h3: {
 					fontSize: theme('fontSize.xl'),
 				},
+				p: {
+					marginBottom: '1em'
+				}
 			});
 		},
 	],

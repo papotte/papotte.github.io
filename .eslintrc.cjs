@@ -6,6 +6,15 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:astro/recommended',
   ],
+  rules: {
+    'sort-imports': [
+      'error',
+      {
+        allowSeparatedGroups: true,
+        memberSyntaxSortOrder: ['multiple', 'single', 'all', 'none'],
+      },
+    ],
+  },
   overrides: [
     {
       files: ['*.astro'],

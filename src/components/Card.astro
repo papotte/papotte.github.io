@@ -1,7 +1,9 @@
 ---
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { Icon } from 'astro-icon';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
 import Tag from './Tag.astro';
+
 const { start, end, title, description, url, tags = [], url_name, icon } = Astro.props;
 // Maybe add an option to not put start & end but just start?
 ---

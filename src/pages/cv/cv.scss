@@ -1,8 +1,8 @@
 .main {
 	@apply relative m-4 bg-white print:m-0;
 	font-size: 12px;
-	font-family: Avenir, Verdana, sans-serif;
 	line-height: 1.5em;
+	font-family: Avenir, Verdana, sans-serif;
 
 	.a4 {
 		@apply container mx-auto w-[595px] bg-white px-12 py-16 drop-shadow-2xl print:w-full print:drop-shadow-none;
@@ -39,8 +39,8 @@
 
 			&:before {
 				@apply col-span-1 mb-1 bg-primary-700;
-				content: ' ';
 				height: 6px;
+				content: ' ';
 			}
 
 			> h3 {

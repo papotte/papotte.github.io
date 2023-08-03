@@ -1,17 +1,15 @@
 ---
-import { Education } from '../../model/Education';
-import * as CONTENT from '../content';
-import './cv.scss';
-import { Icon } from 'astro-icon';
-import { IconMap } from '../../lib/style-helper';
-import { contactInfo } from '../content';
-import { JobExperience } from '../../model/JobExperience';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { Language } from '../../model/Language';
-import { TechnicalSkills } from '../../model/TechnicalSkills';
-import type { Interests } from '../../model/Interests';
-import { Project } from '../../model/Project';
-import Print from '../../components/Print.astro';
+
+import { Icon } from 'astro-icon';
+
+import { Education, Interests, JobExperience, Language, Project, TechnicalSkills } from '@/model';
+import { IconMap } from '@lib/style-helper';
+import Print from '@components/Print.astro';
+
+import * as CONTENT from '@content';
+
+import './cv.scss';
 
 const contactInfo = [
 	{

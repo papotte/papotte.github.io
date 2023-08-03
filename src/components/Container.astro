@@ -1,11 +1,12 @@
 ---
-import * as CONTENT from '../pages/content';
-import AccordionLayout from '../layouts/AccordionLayout.astro';
-import Card from './Card.astro';
-import type { JobExperience } from '../model/JobExperience';
-import type { Education } from '../model/Education';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { IconMap } from '../lib/style-helper';
+
+import type { Education, JobExperience } from '@/model';
+import AccordionLayout from '@layouts/AccordionLayout.astro';
+import Card from './Card.astro';
+import { IconMap } from '@lib/style-helper';
+
+import * as CONTENT from '@pages/content';
 
 const SocialLinks = Object.entries<string>(CONTENT.socialLinks);
 ---

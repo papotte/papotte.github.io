@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import contentful from 'contentful';
+
+import type { PersonalData } from '@/model';
+
 import { Geolocation } from './geolocation';
-import type { PersonalData } from '../model/PersonalData';
 
 export const contentfulClient = contentful.createClient({
 	space: import.meta.env.CONTENTFUL_SPACE_ID,

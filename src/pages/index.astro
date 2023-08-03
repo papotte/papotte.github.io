@@ -1,8 +1,8 @@
 ---
-import * as CONTENT from './content';
-import Container from '../components/Container.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Container from '@components/Container.astro';
+import Footer from '@components/Footer.astro';
+import Header from '@components/Header.astro';
+import { name } from '@content';
 ---
 
 <html lang="en">
@@ -14,7 +14,7 @@ import Footer from '../components/Footer.astro';
 		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>CV | {CONTENT.name}</title>
+		<title>CV | {name}</title>
 	</head>
 	<body class="bg-background text-text flex flex-col min-h-screen">
 		<Header />

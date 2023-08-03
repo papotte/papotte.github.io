@@ -4,9 +4,9 @@ import type { Education } from './Education';
 import type { Interests } from './Interests';
 import type { JobExperience } from './JobExperience';
 import type { Language } from './Language';
+import type { Project } from './Project';
 import type { SocialMedia } from './SocialMedia';
 import type { TechnicalSkills } from './TechnicalSkills';
-import type { Project } from './Project';
 
 export interface PersonalData {
 	name: string;
@@ -18,7 +18,7 @@ export interface PersonalData {
 	title: string;
 	bio: string;
 	avatar: string;
-	address: Address;
+	location: Address;
 	contact: Contact;
 	experience: JobExperience[];
 	education: Education[];
