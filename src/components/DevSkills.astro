@@ -1,0 +1,52 @@
+---
+import Icon from 'astro-icon';
+import { TechnicalSkills } from '@/model';
+import { skills } from '@pages/content';
+import SkillBar from '@components/SkillBar.astro';
+const { value } = Astro.props;
+
+const IconMap = {
+	Language: 'mdi:xml',
+	Framework: 'mdi:application-brackets-outline',
+	Tools: 'mdi:cogs',
+	Graphic: 'mdi:draw',
+};
+const skillCategories: Map<string, TechnicalSkills[]> = value.reduce((acc, item: TechnicalSkills) => {
+	const keywords = item.keywords?.map((keyword) => keyword.trim()) || [];
+	keywords.forEach((keyword) => {
+		if (Object.keys(IconMap).indexOf(keyword) !== -1) {
+			if (acc.has(keyword)) {
+				acc.set(keyword, [...acc.get(keyword), item]);
+			} else {
+				acc.set(keyword, [item]);
+			}
+		}
+	});
+	return acc;
+}, new Map());
+
+const skillList = Array.from(skillCategories.entries());
+---
+
+<section id="skills">
+	<div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+		<h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-justify md:text-5xl lg:text-6xl">
+			Languages and Tools
+		</h1>
+		<div class="my-8 columns-2 md:columns-3 gap-8">
+			{
+				skillList.map(([label, item]) => (
+					<div class="break-inside-avoid mb-12">
+						<div class="flex flex-col items-center gap-4 px-8">
+							<Icon name={IconMap[label]} class="w-12 h-12" />
+							<h2 class="font-bold">{label}</h2>
+							{item.map(({ name, proficiency }) => (
+								<SkillBar name={name} level={proficiency} />
+							))}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

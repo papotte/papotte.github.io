@@ -2,11 +2,10 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import Icon from 'astro-icon';
-import * as CONTENT from 'src/pages/content';
 const { title, description } = Astro.props;
 ---
 
-<section class="">
+<section id="about">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
 		<h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-justify md:text-5xl lg:text-6xl">
 			{title}

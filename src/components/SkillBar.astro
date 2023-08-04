@@ -1,0 +1,16 @@
+---
+const { name, level = 1 } = Astro.props;
+
+const LevelMap = ['', 'Beginner', 'Basic', 'Intermediate', 'Proficient', 'Advanced'];
+---
+
+<div class="w-full">
+	<div class="flex flex-row bg-2 justify-between items-start">
+		<div class="text-tertiary font-medium">{name}</div>
+		<div class="text-tertiary text-xs font-light">{LevelMap[level]}</div>
+	</div>
+
+	<div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+		<div class={`bg-accent h-4 rounded-full w-${level}/5`}></div>
+	</div>
+</div>
