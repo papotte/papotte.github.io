@@ -1,9 +1,9 @@
 ---
 import NavBar from '@components/NavBar.astro';
-import { name, data } from '@content';
+import { name, data, work, skills } from '@content';
 import Jumbotron from '@components/Jumbotron.astro';
 import DevSkills from '@components/DevSkills.astro';
-import { skills } from '@pages/content';
+import Timeline from '@components/Timeline.astro';
 ---
 
 <html lang="en" data-theme="light">
@@ -21,6 +21,7 @@ import { skills } from '@pages/content';
 		<NavBar />
 		<Jumbotron title={data.tagline} description={data.bio} />
 		<DevSkills value={skills} />
+		<Timeline value={work} />
 	</body>
 </html>
 

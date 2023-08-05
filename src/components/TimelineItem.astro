@@ -1,0 +1,32 @@
+---
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+const { title, subtitle, description, time, labels } = Astro.props;
+---
+
+<li class="relative group flex py-8 w-1/2 flex-row even:flex-row-reverse self-end even:self-start gap-x-4">
+	<div class="absolute w-[1px] h-full bg-accent"></div>
+	<div
+		class="block items-center justify-center w-6 h-6 rounded-full bg-accent flex-none group-odd:-ml-3 group-even:-mr-3"
+	>
+	</div>
+
+	<div class="flex flex-col truncate whitespace-normal text-tertiary-900 gap-2 items-start group-even:items-end pt-1">
+		<time class="block mb-2 font-bold leading-none text-tertiary-400">{time}</time>
+
+		<h2 class="font-bold">{title}</h2>
+		<h3>{subtitle}</h3>
+		<div class="font-normal text-tertiary-500 text-start group-even:text-end">
+			<Fragment set:html={documentToHtmlString(description)} />
+		</div>
+
+		<div class="flex flex-wrap gap-2 text-start group-even:text-end">
+			{
+				labels.map((label) => (
+					<span class="inline-block text-xs font-medium text-secondary-800 dark:text-secondary-400 bg-secondary-100 dark:bg-secondary-800 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+						{label}
+					</span>
+				))
+			}
+		</div>
+	</div>
+</li>
