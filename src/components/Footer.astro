@@ -1,27 +1,32 @@
-<footer class="bg-background/5 flex justify-between items-center px-2 py-1">
-	<p>© 2023 Peter Griffin</p>
+---
+import Icon from 'astro-icon';
+---
 
-	<p>
-		<a
-			href="https://github.com/uskhokhar/astro-vitae"
-			target="_blank"
-			class="underline underline-offset-2 hover:no-underline"
-		>
-			Astro-Vitae Template
-		</a>
-		 developed by
-		<a href="https://uskhokhar.me" target="_blank" class="underline underline-offset-2 hover:no-underline">
-			U.S.Khokhar 🤓
-		</a>
-	</p>
+<footer class="bg-background/5 flex justify-between items-center px-2 py-1">
+	<div class="py-8 px-4 lg:py-16 mx-auto max-w-screen-xl text-center flex flex-col gap-x-4 gap-y-8 lg:gap-y-16">
+		<div class="copyright text-tertiary-500">
+			<span>© All rights are reserved</span>
+			<span>2023</span>
+			<span class="gap-1">
+				Made with
+				<Icon name="mdi:heart" class="w-6 h-6 text-accent" /> by <a href="https://github.com/papotte">Ross Bermudez</a>
+				 with
+				<Icon name="logos:astro" class="w-6 h-6" />
+			</span>
+		</div>
+	</div>
 </footer>
 
 <style>
-	p {
-		@apply text-sm text-text/50;
+	.copyright {
+		@apply flex flex-row justify-center text-sm;
+	}
+
+	span {
+		@apply flex flex-row items-center after:mx-2 after:content-['|'] last:after:content-[''];
 	}
 
 	a {
-		@apply underline hover:text-text/80;
+		@apply text-primary;
 	}
 </style>
