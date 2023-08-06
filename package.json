@@ -8,9 +8,17 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test": "echo 'No tests yet'",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "npx husky install"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier .",
+      "eslint"
+    ]
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.2.2",
@@ -44,6 +52,8 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-prettier-doc": "^1.1.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.3",
     "prettier": "^3.0.1",
     "prettier-plugin-astro": "^0.11.0",
     "prettier-plugin-css-order": "^2.0.0",
