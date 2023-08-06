@@ -15,7 +15,7 @@
     "prepare": "npx husky install"
   },
   "lint-staged": {
-    "*": [
+    "*.{ts,js,cjs,cts,json,astro}": [
       "prettier .",
       "eslint"
     ]

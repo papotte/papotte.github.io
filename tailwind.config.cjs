@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import colors from 'tailwindcss/colors';
+import plugin from 'tailwindcss/plugin';
 import { createThemes } from 'tw-colors';
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
 	plugins: [
 		require('flowbite/plugin'),
 		require('tailwind-scrollbar')({ nocompatible: true }),
-		function ({ addBase, theme }) {
+		plugin(({ addBase, theme }) => {
 			addBase({
 				h1: {
 					fontSize: theme('fontSize.3xl'),
@@ -23,7 +24,41 @@ module.exports = {
 					marginBottom: '1em',
 				},
 			});
-		},
+		}),
+		plugin(({ matchComponents, theme }) => {
+			matchComponents(
+				{
+					button: (value) => ({
+						color: 'white',
+						content: value,
+						textAlign: 'center',
+						padding: '0.625rem 1.25rem',
+						borderRadius: '0.5rem',
+						backgroundColor: theme(`colors.${value}`),
+						'&:hover': {
+							backgroundColor: `hsl(var(--twc-${value}-800))`,
+						},
+						'&:focus': {
+							'--tw-ring-color': `hsl(var(--twc-${value}-300))`,
+							'--tw-ring-offset-shadow':
+								'var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)',
+							'--tw-ring-shadow':
+								'var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color)',
+							boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)',
+							outline: 'none',
+						},
+					}),
+				},
+				{
+					values: {
+						primary: 'primary',
+						secondary: 'secondary',
+						accent: 'accent',
+						tertiary: 'tertiary',
+					},
+				}
+			);
+		}),
 		createThemes({
 			light: {
 				text: colors.slate[900],
