@@ -1,0 +1,22 @@
+---
+import { name } from '@content';
+---
+
+<html lang="en" data-theme="light">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>CV | {name}</title>
+	</head>
+	<body class="bg-background text-text flex flex-col items-center min-h-screen py-24">
+		<div class="w-48 md:w-96">
+			<img src="error-404.svg" alt="Error 404 represented by cat" class="object-cover w-full h-full" />
+		</div>
+		<a href="/" class="button-accent font-medium w-fit">Back to safety</a>
+	</body>
+</html>
