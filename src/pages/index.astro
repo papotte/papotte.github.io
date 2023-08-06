@@ -1,11 +1,14 @@
 ---
-import { data, name, skills, work } from '@content';
+import { data, name, skills, socialLinks, work } from '@content';
 import Contact from '@components/Contact.astro';
 import DevSkills from '@components/DevSkills.astro';
 import Footer from '@components/Footer.astro';
+import { IconMap } from '@lib/style-helper';
 import Jumbotron from '@components/Jumbotron.astro';
 import NavBar from '@components/NavBar.astro';
 import Timeline from '@components/Timeline.astro';
+
+const social = Object.entries(socialLinks).map(([name, url]) => ({ name, href: url, icon: IconMap[name] }));
 ---
 
 <html lang="en" data-theme="light">
@@ -25,7 +28,7 @@ import Timeline from '@components/Timeline.astro';
 		<DevSkills value={skills} />
 		<Timeline value={work} />
 		<Contact />
-		<Footer />
+		<Footer links={social} />
 	</body>
 </html>
 

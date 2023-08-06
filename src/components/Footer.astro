@@ -1,9 +1,13 @@
 ---
 import Icon from 'astro-icon';
+
+const { links } = Astro.props;
 ---
 
 <footer class="bg-background/5 flex justify-between items-center px-2 py-1">
-	<div class="py-8 px-4 lg:py-16 mx-auto max-w-screen-xl text-center flex flex-col gap-x-4 gap-y-8 lg:gap-y-16">
+	<div
+		class="py-8 px-4 lg:py-16 mx-auto w-full max-w-screen-xl flex flex-row gap-x-4 gap-y-8 lg:gap-y-16 justify-between"
+	>
 		<div class="copyright text-tertiary-500">
 			<span>© All rights are reserved</span>
 			<span>2023</span>
@@ -14,12 +18,25 @@ import Icon from 'astro-icon';
 				<Icon name="logos:astro" class="w-6 h-6" />
 			</span>
 		</div>
+		<div class="social-links">
+			{
+				links.map((l) => (
+					<a href={l.href}>
+						<Icon name={l.icon} class="w-10 h-10" />
+					</a>
+				))
+			}
+		</div>
 	</div>
 </footer>
 
 <style>
 	.copyright {
 		@apply flex flex-row justify-center text-sm;
+	}
+
+	.social-links {
+		@apply flex flex-row justify-center gap-x-4;
 	}
 
 	span {
