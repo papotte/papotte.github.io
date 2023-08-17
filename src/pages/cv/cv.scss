@@ -5,7 +5,7 @@
 	font-family: Avenir, Verdana, sans-serif;
 
 	.a4 {
-		@apply container mx-auto w-[595px] bg-white px-12 py-16 drop-shadow-2xl print:w-full print:drop-shadow-none;
+		@apply container mx-auto w-[595px] bg-white px-12 py-16 drop-shadow-2xl print:w-full print:p-0 print:drop-shadow-none;
 	}
 
 	.header {
