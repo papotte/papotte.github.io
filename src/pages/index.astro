@@ -35,3 +35,21 @@ const social = Object.entries(socialLinks).map(([name, url]) => ({ name, href: u
 <script>
 	import 'flowbite';
 </script>
+
+<style is:global lang="scss">
+	nav,
+	section,
+	footer,
+	header {
+		> div {
+			@apply mx-10 flex px-4 py-8 md:mx-auto md:max-w-screen-xl lg:py-16;
+		}
+	}
+
+	section,
+	footer {
+		> div {
+			@apply flex-col;
+		}
+	}
+</style>

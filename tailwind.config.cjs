@@ -23,6 +23,9 @@ module.exports = {
 				p: {
 					marginBottom: '1em',
 				},
+				body: {
+					printColorAdjust: 'exact',
+				},
 			});
 		}),
 		plugin(({ matchComponents, theme }) => {
@@ -34,6 +37,7 @@ module.exports = {
 						textAlign: 'center',
 						padding: '0.625rem 1.25rem',
 						borderRadius: '0.5rem',
+						maxWidth: 'fit-content',
 						backgroundColor: theme(`colors.${value}`),
 						'&:hover': {
 							backgroundColor: `hsl(var(--twc-${value}-800))`,

@@ -31,6 +31,12 @@ module.exports = {
         // "astro/no-set-html-directive": "error"
       },
     },
-    // ...
+    {
+      files: ['*.cjs'],
+      rules: {
+        'sort-imports': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
   ],
 };
