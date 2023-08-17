@@ -1,12 +1,19 @@
 ---
 import { Icon } from 'astro-icon';
 const { color = 'secondary' } = Astro.props;
+
+const colorVariants = {
+	primary: 'bg-primary hover:bg-primary-800 focus:ring-primary-300',
+	secondary: 'bg-secondary hover:bg-secondary-800 focus:ring-secondary-300',
+	tertiary: 'bg-tertiary hover:bg-tertiary-800 focus:ring-tertiary-300',
+	accent: 'bg-accent hover:bg-accent-800 focus:ring-accent-300',
+};
 ---
 
 <print-button>
 	<button
 		type="button"
-		class={`text-white bg-${color} hover:bg-${color}-800 focus:ring-4 focus:outline-none focus:ring--300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2`}
+		class={`text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 ${colorVariants[color]}`}
 	>
 		<Icon name="mdi:printer" class="w-8 h-8" />
 	</button>
