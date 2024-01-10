@@ -5,34 +5,40 @@ name: Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version-file: .nvmrc
-        cache: 'npm'
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+          cache: 'npm'
 
-    - name: Cache node_modules
-      id: cache_modules
-      uses: actions/cache@v3
-      with:
-        path: ./node_modules
-        key: modules-root-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
+      - name: Cache node_modules
+        id: cache_modules
+        uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: modules-root-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
 
-    - name: Install dependencies
-      if: steps.cache_modules.outputs.cache-hit != 'true'
-      run: npm ci --ignore-scripts
+      - name: Install dependencies
+        if: steps.cache_modules.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
 
-    - run: npm run build
-      name: Build
+      - run: npm run format:check
+        name: Format Check
 
-    - run: npm test
-      name: Test
+      - run: npm run lint
+        name: Lint
+
+      - run: npm run build
+        name: Build
+
+      - run: npm test
+        name: Test

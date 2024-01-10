@@ -12,6 +12,7 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"format": "prettier --write .",
+		"format:check": "prettier --check .",
 		"prepare": "npx husky install"
 	},
 	"lint-staged": {
