@@ -1,16 +1,11 @@
 import type { EntryFieldTypes } from 'contentful';
 
-import type { Address } from './Address';
+import type { DatedEntity, LocatedEntity } from './common';
 
-export interface JobExperience {
+export interface JobExperience extends DatedEntity, LocatedEntity {
 	company: EntryFieldTypes.Text;
 	position: EntryFieldTypes.Text;
-	start: EntryFieldTypes.Text;
-	startDate: EntryFieldTypes.Date;
-	end?: EntryFieldTypes.Text;
-	endDate?: EntryFieldTypes.Date;
 	description: EntryFieldTypes.RichText;
-	location: Address;
 	website: EntryFieldTypes.Text;
 	tags: string[];
 	tasks?: string[];

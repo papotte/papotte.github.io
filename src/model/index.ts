@@ -8,3 +8,5 @@ export * from './PersonalData';
 export * from './Project';
 export * from './SocialMedia';
 export * from './TechnicalSkills';
+
+export * from './common';

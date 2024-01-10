@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TransformData } from '@lib/contentful-transformer';
 import contentful from 'contentful';
 
 import type { PersonalData } from '@/model';
-
-import { Geolocation } from './geolocation';
 
 export const contentfulClient = contentful.createClient({
 	space: import.meta.env.CONTENTFUL_SPACE_ID,
@@ -18,40 +16,23 @@ export interface ContentfulEntity<T> {
 	fields: T;
 }
 
-const locales = 'en-US';
-const localeOptions: Intl.DateTimeFormatOptions = {
-	year: 'numeric',
-	month: 'short',
-};
-
-export const TransformData = async (data: any) => {
-	if (data?.fields?.startDate) {
-		data.fields.start = new Date(data.fields.startDate).toLocaleDateString(locales, localeOptions);
-		data.fields.startDate = new Date(data.fields.startDate);
-	}
-	if (data?.fields?.endDate) {
-		data.fields.end = new Date(data.fields.endDate).toLocaleDateString(locales, localeOptions);
-		data.fields.endDate = new Date(data.fields.endDate);
-	}
-	if (data?.fields.location) {
-		data.fields.location = await Geolocation.getAddress(data.fields.location);
-	}
-	return data.fields;
-};
-
 const sortBy = (field: string) => (a: any, b: any) => {
 	return b[field] - a[field];
 };
 
+const query = {
+	content_type: 'developerPortfolio',
+	locale: 'en-US',
+	include: 1,
+	'fields.name[match]': import.meta.env.NAME,
+};
 export const personalData = await contentfulClient
-	.getEntries<ContentfulEntity<PersonalData>>({
-		content_type: 'developerPortfolio',
-		locale: 'en-US',
-		include: 1,
-		'fields.name[match]': import.meta.env.NAME,
-	})
-	.then(async (response) => {
-		const personalData = await TransformData(response.items[0]);
+	.getEntries<ContentfulEntity<PersonalData>>(query)
+	.then(async ({ items }) => {
+		const personalData = await TransformData<PersonalData>(items[0].fields);
+		if (!personalData) {
+			throw new Error('Personal data not found');
+		}
 		const experience = await Promise.all(personalData.experience.map((e) => TransformData(e)));
 		const education = await Promise.all(personalData.education.map((e) => TransformData(e)));
 		const interests = await Promise.all(personalData.interests.map((e) => TransformData(e)));
@@ -60,7 +41,6 @@ export const personalData = await contentfulClient
 		const projects = await Promise.all(personalData.projects.map((e) => TransformData(e)));
 		return {
 			...personalData,
-			avatar: personalData.avatar.fields.file.url,
 			experience: experience.sort(sortBy('startDate')),
 			education: education.sort(sortBy('endDate')),
 			projects: projects.sort(sortBy('endDate')),

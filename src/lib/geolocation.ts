@@ -1,19 +1,19 @@
-import NodeGeolocation from 'nodejs-geolocation';
+import type NodeGeolocation from 'nodejs-geolocation';
 
-import type { Address } from '@/model';
+import type { Address, Position } from '@/model';
 
-type Position = { lat: number; lon: number };
-const geo = new NodeGeolocation('Geolocation');
+export class Geolocator {
+	constructor(private readonly geolocationService: NodeGeolocation) {
+		geolocationService.geocodingOptions = {
+			service: 'Nominatim',
+			key: '',
+		};
+	}
 
-geo.geocodingOptions = {
-	service: 'Nominatim',
-	key: '',
-};
-export const Geolocation = {
-	getAddress: async ({ lat, lon }: Position): Promise<Address> => {
-		const { address } = await geo.getReverseGeocoding({ lat, lon });
+	public async getAddress({ lat, lon }: Position): Promise<Address> {
+		const { address } = await this.geolocationService.getReverseGeocoding({ lat, lon });
 		address.city =
 			address.city?.replace('Perímetro Urbano ', '') || address.municipality || address.town || address.village;
 		return address;
-	},
-};
+	}
+}

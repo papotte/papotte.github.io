@@ -1,4 +1,3 @@
-import type { Address } from './Address';
 import type { Contact } from './Contact';
 import type { Education } from './Education';
 import type { Interests } from './Interests';
@@ -7,8 +6,9 @@ import type { Language } from './Language';
 import type { Project } from './Project';
 import type { SocialMedia } from './SocialMedia';
 import type { TechnicalSkills } from './TechnicalSkills';
+import type { AvatarEntity, LocatedEntity } from './common';
 
-export interface PersonalData {
+export interface PersonalData extends LocatedEntity, AvatarEntity {
 	name: string;
 	displayName: string;
 	pronouns: string;
@@ -18,7 +18,6 @@ export interface PersonalData {
 	title: string;
 	bio: string;
 	avatar: string;
-	location: Address;
 	contact: Contact;
 	experience: JobExperience[];
 	education: Education[];
