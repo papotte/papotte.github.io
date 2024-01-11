@@ -15,9 +15,11 @@ const fakeGeolocatorWith: (x: Partial<Address>) => Geolocator = (x) =>
 describe('contentful-transformer', () => {
 	test('Transform location', async () => {
 		const input = {
-			location: {
-				lat: 52.52,
-				lon: 13.40495,
+			fields: {
+				location: {
+					lat: 52.52,
+					lon: 13.40495,
+				},
 			},
 		};
 
@@ -28,7 +30,9 @@ describe('contentful-transformer', () => {
 
 	test('Transform start date', async () => {
 		const input = {
-			startDate: '2020-01-01',
+			fields: {
+				startDate: '2020-01-01',
+			},
 		};
 
 		const result = await TransformData<DatedEntity>(input);
@@ -39,7 +43,9 @@ describe('contentful-transformer', () => {
 	});
 	test('Transform end date', async () => {
 		const input = {
-			endDate: '2022-01-01',
+			fields: {
+				endDate: '2022-01-01',
+			},
 		};
 
 		const result = await TransformData<DatedEntity>(input);
@@ -51,10 +57,12 @@ describe('contentful-transformer', () => {
 
 	test('Transform avatar', async () => {
 		const input = {
-			avatar: {
-				fields: {
-					file: {
-						url: 'test.png',
+			fields: {
+				avatar: {
+					fields: {
+						file: {
+							url: 'test.png',
+						},
 					},
 				},
 			},

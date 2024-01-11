@@ -21,11 +21,12 @@ const { title, subtitle, description, time, labels } = Astro.props;
 
 		<div class="flex flex-wrap gap-2 text-start group-even:text-end">
 			{
-				labels.map((label) => (
-					<span class="inline-block text-xs font-medium text-secondary-800 dark:text-secondary-400 bg-secondary-100 dark:bg-secondary-800 px-2.5 py-0.5 rounded-full whitespace-nowrap">
-						{label}
-					</span>
-				))
+				labels &&
+					labels.map((label) => (
+						<span class="inline-block text-xs font-medium text-secondary-800 dark:text-secondary-400 bg-secondary-100 dark:bg-secondary-800 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+							{label}
+						</span>
+					))
 			}
 		</div>
 	</div>

@@ -1,7 +1,8 @@
 import { TransformData } from '@lib/contentful-transformer';
 import contentful from 'contentful';
 
-import type { PersonalData } from '@/model';
+import type { Education, Interests, JobExperience, Language, PersonalData, Project, TechnicalSkills } from '@/model';
+import type { ContentfulData } from '@/model';
 
 export const contentfulClient = contentful.createClient({
 	space: import.meta.env.CONTENTFUL_SPACE_ID,
@@ -26,19 +27,31 @@ const query = {
 	include: 1,
 	'fields.name[match]': import.meta.env.NAME,
 };
-export const personalData = await contentfulClient
-	.getEntries<ContentfulEntity<PersonalData>>(query)
-	.then(async ({ items }) => {
-		const personalData = await TransformData<PersonalData>(items[0].fields);
+
+type ArrayProps = 'experience' | 'education' | 'projects' | 'languages' | 'skills' | 'interests';
+
+export const parseEntryPropArray = async <T extends ContentfulData>(
+	personalData: PersonalData,
+	propName: ArrayProps
+) => {
+	const prop = personalData[propName];
+	if (!prop) {
+		throw new Error(`Property ${propName} not found`);
+	}
+	return await Promise.all(prop.map((e) => TransformData<T>(e)));
+};
+
+export const parseEntry = async (item: Partial<ContentfulEntity<PersonalData>>): Promise<PersonalData> => {
+		const personalData = await TransformData<PersonalData>(item);
 		if (!personalData) {
 			throw new Error('Personal data not found');
 		}
-		const experience = await Promise.all(personalData.experience.map((e) => TransformData(e)));
-		const education = await Promise.all(personalData.education.map((e) => TransformData(e)));
-		const interests = await Promise.all(personalData.interests.map((e) => TransformData(e)));
-		const skills = await Promise.all(personalData.skills.map((e) => TransformData(e)));
-		const languages = await Promise.all(personalData.languages.map((e) => TransformData(e)));
-		const projects = await Promise.all(personalData.projects.map((e) => TransformData(e)));
+		const experience = await parseEntryPropArray<JobExperience>(personalData, 'experience');
+		const education = await Promise.all(personalData.education.map((e) => TransformData<Education>(e)));
+		const interests = await Promise.all(personalData.interests.map((e) => TransformData<Interests>(e)));
+		const skills = await Promise.all(personalData.skills.map((e) => TransformData<TechnicalSkills>(e)));
+		const languages = await Promise.all(personalData.languages.map((e) => TransformData<Language>(e)));
+		const projects = await Promise.all(personalData.projects.map((e) => TransformData<Project>(e)));
 		return {
 			...personalData,
 			experience: experience.sort(sortBy('startDate')),
@@ -48,4 +61,7 @@ export const personalData = await contentfulClient
 			skills: skills.sort(sortBy('proficiency')),
 			languages: languages,
 		};
-	});
+	},
+	personalData = await contentfulClient
+		.getEntries<ContentfulEntity<PersonalData>>(query)
+		.then(({ items }) => parseEntry(items[0]));

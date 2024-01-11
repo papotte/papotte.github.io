@@ -10,15 +10,15 @@ const localeOptions: Intl.DateTimeFormatOptions = {
 };
 
 export const dataTransformer = (gelocator: Geolocator) => {
-	return async <T extends ContentfulData>(contentfulData: any): Promise<T> => {
+	return async <T extends ContentfulData>({ fields: contentfulData }: any): Promise<T> => {
 		const resultingData = { ...contentfulData };
 		if (contentfulData?.startDate) {
-			resultingData.start = new Date(contentfulData.startDate).toLocaleDateString(locales, localeOptions);
 			resultingData.startDate = new Date(contentfulData.startDate);
+			resultingData.start = resultingData.startDate.toLocaleDateString(locales, localeOptions);
 		}
 		if (contentfulData?.endDate) {
-			resultingData.end = new Date(contentfulData.endDate).toLocaleDateString(locales, localeOptions);
 			resultingData.endDate = new Date(contentfulData.endDate);
+			resultingData.end = resultingData.endDate.toLocaleDateString(locales, localeOptions);
 		}
 		if (contentfulData?.location) {
 			resultingData.location = await gelocator.getAddress(contentfulData.location);
