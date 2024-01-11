@@ -5,7 +5,14 @@ export default getViteConfig({
 	test: {
 		globals: true,
 		coverage: {
-			reporter: ['text', 'json', 'html', 'lcov'],
+			reporter: ['text', 'json', 'json-summary', 'lcov'],
+			thresholds: {
+				lines: 20,
+				branches: 20,
+				functions: 20,
+				statements: 20,
+			},
+			reportOnFailure: true,
 		},
 	},
 });
