@@ -1,5 +1,7 @@
 # Astro-Vitae | Personalized CV with minimal efforts
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/15cfc0e4343e4c7ba03e7af06f76142c)](https://app.codacy.com/gh/papotte/papotte-vitae?utm_source=github.com&utm_medium=referral&utm_content=papotte/papotte-vitae&utm_campaign=Badge_Grade)
+
 ![Astro-Vitae | Personalized CV with minimal efforts](public/screenshot.jpeg)
 
 Astro-Vitae is a free, personalized CV template with sleek & minimal design which helps in simplifying the process of
