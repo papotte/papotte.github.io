@@ -20,6 +20,14 @@
 			"options": {
 				"parser": "astro"
 			}
+		},
+		{
+			"files": ["*.css", "*.scss"],
+			"options": {
+				"parser": "scss",
+				"tabWidth": 2,
+				"useTabs": false
+			}
 		}
 	]
 }
