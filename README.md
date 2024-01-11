@@ -1,3 +1,7 @@
+[![Test](https://github.com/papotte/papotte-vitae/actions/workflows/test.yml/badge.svg)](https://github.com/papotte/papotte-vitae/actions/workflows/test.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0380c3f4581741439b3b242fba4c12dd)](https://app.codacy.com/gh/papotte/papotte-vitae/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+![Vercel](https://vercelbadge.vercel.app/api/papotte/papotte-vitae)
+
 # Astro-Vitae | Personalized CV with minimal efforts
 
 ![Astro-Vitae | Personalized CV with minimal efforts](public/screenshot.jpeg)
