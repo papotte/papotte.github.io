@@ -17,57 +17,64 @@ const accessToken = import.meta.env.WEB3FORMS_ACCESS_TOKEN;
 			>
 				<input type="hidden" name="access_key" value={accessToken} />
 				<div>
-					<label for="name" class="block mb-2 text-sm font-medium"> Your name</label>
-					<div class="relative">
-						<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
-							<Icon name="mdi:account" class="w-4 h-4" />
+					<label for="name" class="block mb-2 text-sm font-medium">
+						Your name
+						<div class="relative">
+							<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
+								<Icon name="mdi:account" class="w-4 h-4" />
+							</div>
+							<input
+								type="text"
+								id="name"
+								autocomplete="name"
+								name="name"
+								class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
+								placeholder="Your full name"
+								required
+							/>
 						</div>
-						<input
-							type="text"
-							id="name"
-							name="name"
-							class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
-							placeholder="Your full name"
-							required
-						/>
-					</div>
+					</label>
 				</div>
 				<div>
-					<label for="email-address-icon" class="block mb-2 text-sm font-medium"> Your Email</label>
-					<div class="relative">
-						<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
-							<Icon name="mdi:at" class="w-4 h-4" />
+					<label for="email-address-icon" class="block mb-2 text-sm font-medium">
+						Your Email
+						<div class="relative">
+							<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
+								<Icon name="mdi:at" class="w-4 h-4" />
+							</div>
+							<input
+								type="email"
+								name="email"
+								autocomplete="email"
+								required
+								id="email-address-icon"
+								class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
+								placeholder="name@email.com"
+							/>
 						</div>
-						<input
-							type="email"
-							name="email"
-							required
-							id="email-address-icon"
-							class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
-							placeholder="name@email.com"
-						/>
-					</div>
+					</label>
 				</div>
 				<div>
-					<label for="message" class="block mb-2 text-sm font-medium">Your message</label>
-
-					<div class="relative">
-						<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
-							<Icon name="mdi:message-processing" class="w-4 h-4" />
+					<label for="message" class="block mb-2 text-sm font-medium">
+						Your message
+						<div class="relative">
+							<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
+								<Icon name="mdi:message-processing" class="w-4 h-4" />
+							</div>
+							<textarea
+								id="message"
+								name="message"
+								rows="4"
+								required
+								class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
+								placeholder="Leave a message..."></textarea>
 						</div>
-						<textarea
-							id="message"
-							name="message"
-							rows="4"
-							required
-							class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
-							placeholder="Leave a message..."></textarea>
-					</div>
+					</label>
 				</div>
 
 				<div class="h-captcha self-center md:self-start" data-captcha="true"></div>
 				<div class="flex items-start mb-6">
-					<button type="submit" class="button-primary font-medium text-sm w-full sm:w-auto"> Submit</button>
+					<button type="submit" class="button-primary font-medium text-sm w-full sm:w-auto">Submit</button>
 				</div>
 			</form>
 

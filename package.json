@@ -55,7 +55,7 @@
 		"eslint": "^8.46.0",
 		"eslint-config-prettier": "^8.9.0",
 		"eslint-plugin-astro": "^0.28.0",
-		"eslint-plugin-jsx-a11y": "^6.7.1",
+		"eslint-plugin-jsx-a11y": "^6.8.0",
 		"eslint-plugin-prettier": "^5.0.0",
 		"eslint-plugin-prettier-doc": "^1.1.0",
 		"husky": "^8.0.0",
