@@ -65,4 +65,8 @@ describe('contentful', () => {
 			})
 		).rejects.toThrowError('Personal data not found');
 	});
+
+	test('should return error when property is undefined', async () => {
+		await expect(parseEntryPropArray(rawData, 'notFound' as any)).rejects.toThrowError("Property 'notFound' not found");
+	});
 });
