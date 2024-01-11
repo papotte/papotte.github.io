@@ -2,7 +2,9 @@
 import Container from '@components/Container.astro';
 import Footer from '@components/Footer.astro';
 import Header from '@components/Header.astro';
-import { name } from '@content';
+import { name, socialLinks } from '@content';
+import { IconMap } from '@lib/style-helper';
+const social = Object.entries(socialLinks).map(([name, url]) => ({ name, href: url, icon: IconMap[name] }));
 ---
 
 <html lang="en" data-theme="dark">
@@ -30,7 +32,7 @@ import { name } from '@content';
 			<Container />
 		</main>
 
-		<Footer />
+		<Footer links={social} />
 	</body>
 </html>
 

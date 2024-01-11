@@ -11,11 +11,11 @@ const { title, subtitle, description, time, labels } = Astro.props;
 	</div>
 
 	<div class="flex flex-col truncate whitespace-normal text-tertiary-900 gap-2 items-start group-even:items-end pt-1">
-		<time class="block mb-2 font-bold leading-none text-tertiary-400">{time}</time>
+		<time class="block mb-2 font-bold leading-none text-tertiary-600">{time}</time>
 
-		<h2 class="font-bold">{title}</h2>
+		<h2 class="font-bold text-primary">{title}</h2>
 		<h3>{subtitle}</h3>
-		<div class="font-normal text-tertiary-500 text-start group-even:text-end">
+		<div class="font-normal text-tertiary-600 text-start group-even:text-end">
 			<Fragment set:html={documentToHtmlString(description)} />
 		</div>
 

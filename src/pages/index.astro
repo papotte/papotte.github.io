@@ -9,11 +9,13 @@ import NavBar from '@components/NavBar.astro';
 import Timeline from '@components/Timeline.astro';
 
 const social = Object.entries(socialLinks).map(([name, url]) => ({ name, href: url, icon: IconMap[name] }));
+const description = `${name} | ${data.title} | ${data.tagline}`;
 ---
 
 <html lang="en" data-theme="light">
 	<head>
 		<meta charset="utf-8" />
+		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

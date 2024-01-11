@@ -70,7 +70,7 @@ module.exports = {
 				base: colors.white,
 				primary: {
 					...colors.sky,
-					DEFAULT: colors.sky[600],
+					DEFAULT: colors.sky[800],
 				},
 				secondary: {
 					...colors.cyan,
