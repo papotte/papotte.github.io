@@ -9,6 +9,8 @@ export default defineConfig({
 	integrations: [tailwind(), alpinejs()],
 	output: 'server',
 	adapter: vercel({
-		analytics: true,
+		webAnalytics: {
+			enabled: true,
+		},
 	}),
 });
