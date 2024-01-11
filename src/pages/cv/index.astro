@@ -4,6 +4,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { Icon } from 'astro-icon';
 
 import { Education, Interests, JobExperience, Language, Project, TechnicalSkills } from '@/model';
+import BaseHead from '@layouts/BaseHead.astro';
 import { IconMap } from '@lib/style-helper';
 import Print from '@components/Print.astro';
 
@@ -42,18 +43,12 @@ const skillCategories: Map<string, TechnicalSkills[]> = CONTENT.skills.reduce((a
 }, new Map());
 
 const skillList = Array.from(skillCategories.entries());
+const title = `${CONTENT.name}'s CV`;
 ---
 
 <html lang="en" data-theme="light">
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{CONTENT.name}'s CV</title>
+		<BaseHead title={title} />
 	</head>
 	<body>
 		<div class="main">

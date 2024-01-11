@@ -7,22 +7,15 @@ import { IconMap } from '@lib/style-helper';
 import Jumbotron from '@components/Jumbotron.astro';
 import NavBar from '@components/NavBar.astro';
 import Timeline from '@components/Timeline.astro';
+import BaseHead from '@layouts/BaseHead.astro';
 
 const social = Object.entries(socialLinks).map(([name, url]) => ({ name, href: url, icon: IconMap[name] }));
-const description = `${name} | ${data.title} | ${data.tagline}`;
+const title = `CV | ${name}`;
 ---
 
 <html lang="en" data-theme="light">
 	<head>
-		<meta charset="utf-8" />
-		<meta name="description" content={description} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>CV | {name}</title>
+		<BaseHead title={title} />
 	</head>
 	<body class="bg-background text-text flex flex-col min-h-screen">
 		<NavBar />
@@ -31,27 +24,26 @@ const description = `${name} | ${data.title} | ${data.tagline}`;
 		<Timeline value={work} />
 		<Contact />
 		<Footer links={social} />
+		<script>
+			import 'flowbite';
+		</script>
+
+		<style is:global lang="scss">
+			nav,
+			section,
+			footer,
+			header {
+				> div {
+					@apply mx-10 flex px-4 py-8 md:mx-auto md:max-w-screen-xl lg:py-16;
+				}
+			}
+
+			section,
+			footer {
+				> div {
+					@apply flex-col;
+				}
+			}
+		</style>
 	</body>
 </html>
-
-<script>
-	import 'flowbite';
-</script>
-
-<style is:global lang="scss">
-	nav,
-	section,
-	footer,
-	header {
-		> div {
-			@apply mx-10 flex px-4 py-8 md:mx-auto md:max-w-screen-xl lg:py-16;
-		}
-	}
-
-	section,
-	footer {
-		> div {
-			@apply flex-col;
-		}
-	}
-</style>

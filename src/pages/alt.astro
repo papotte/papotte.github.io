@@ -3,20 +3,16 @@ import Container from '@components/Container.astro';
 import Footer from '@components/Footer.astro';
 import Header from '@components/Header.astro';
 import { name, socialLinks } from '@content';
+import BaseHead from '@layouts/BaseHead.astro';
 import { IconMap } from '@lib/style-helper';
+
 const social = Object.entries(socialLinks).map(([name, url]) => ({ name, href: url, icon: IconMap[name] }));
+const title = `CV | ${name}`;
 ---
 
 <html lang="en" data-theme="dark">
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>CV | {name}</title>
+		<BaseHead title={title} />
 	</head>
 	<body class="bg-background text-text flex flex-col min-h-screen">
 		<Header />
@@ -33,32 +29,32 @@ const social = Object.entries(socialLinks).map(([name, url]) => ({ name, href: u
 		</main>
 
 		<Footer links={social} />
+
+		<style is:global>
+			* {
+				transition: 350ms ease-in-out;
+				font-family: 'Manrope', sans-serif;
+			}
+
+			@media only screen and (max-width: 480px) {
+				* {
+					font-size: 12px;
+				}
+			}
+
+			/* For webkit-based browsers */
+			.overflow-y-scroll::-webkit-scrollbar {
+				width: 3px;
+			}
+
+			.overflow-y-scroll::-webkit-scrollbar-thumb {
+				background-color: #50595e;
+			}
+
+			/* For Firefox */
+			.overflow-y-scroll {
+				scrollbar-width: 1px;
+			}
+		</style>
 	</body>
 </html>
-
-<style is:global>
-	* {
-		transition: 350ms ease-in-out;
-		font-family: 'Manrope', sans-serif;
-	}
-
-	@media only screen and (max-width: 480px) {
-		* {
-			font-size: 12px;
-		}
-	}
-
-	/* For webkit-based browsers */
-	.overflow-y-scroll::-webkit-scrollbar {
-		width: 3px;
-	}
-
-	.overflow-y-scroll::-webkit-scrollbar-thumb {
-		background-color: #50595e;
-	}
-
-	/* For Firefox */
-	.overflow-y-scroll {
-		scrollbar-width: 1px;
-	}
-</style>

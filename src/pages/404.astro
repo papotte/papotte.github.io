@@ -1,17 +1,12 @@
 ---
 import { name } from '@content';
+import BaseHead from '@layouts/BaseHead.astro';
+const title = `CV | ${name}`;
 ---
 
 <html lang="en" data-theme="light">
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>CV | {name}</title>
+		<BaseHead title={title} />
 	</head>
 	<body class="bg-background text-text flex flex-col items-center min-h-screen py-24">
 		<div class="w-48 md:w-96">
