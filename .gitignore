@@ -1,6 +1,7 @@
 # build output
 dist/
 .vercel
+coverage/
 
 # generated types
 .astro/

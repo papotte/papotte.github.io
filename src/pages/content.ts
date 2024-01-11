@@ -11,8 +11,6 @@ export const avatar = personalData.avatar;
 
 export const data = personalData;
 
-console.log(personalData);
-
 // About
 export const about = personalData.bio;
 // Work Experience --> #work section
