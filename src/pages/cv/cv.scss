@@ -39,7 +39,7 @@
     > .title {
       @apply grid grid-cols-6 items-end gap-4 text-primary-700;
 
-      &:before {
+      &::before {
         @apply col-span-1 mb-1 bg-primary-700;
 
         height: 6px;
@@ -63,11 +63,11 @@
 
         > .title {
           > span {
-            &:after {
+            &::after {
               content: ', ';
             }
 
-            &:last-child:after {
+            &:last-child::after {
               content: '';
             }
           }
