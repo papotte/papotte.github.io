@@ -5,6 +5,7 @@ export default getViteConfig({
 	test: {
 		globals: true,
 		coverage: {
+			include: ['src/'],
 			reporter: ['text', 'json', 'json-summary', 'lcov'],
 			thresholds: {
 				lines: 20,
