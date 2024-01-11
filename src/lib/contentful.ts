@@ -33,7 +33,7 @@ export const parseEntryPropArray = async <T extends ContentfulData>(
 ) => {
 	const prop = personalData[propName];
 	if (!prop) {
-		throw new Error(`Property ${propName} not found`);
+		throw new Error(`Property '${propName}' not found`);
 	}
 	return await Promise.all(prop.map((e) => TransformData<T>(e)));
 };

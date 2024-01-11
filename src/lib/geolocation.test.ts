@@ -4,13 +4,26 @@ import { describe, expect, test } from 'vitest';
 
 import { Geolocator } from './geolocation';
 
-const withReverseGeocoding: (_x: Partial<ReverseGeocodingData>) => NodeGeolocation = (x) =>
-	({
-		getReverseGeocoding: () => Promise.resolve({ address: x }),
-	}) as unknown as NodeGeolocation;
+const fakeGeolocationService: NodeGeolocation = {
+	geocodingOptions: {
+		service: '',
+	},
+} as unknown as NodeGeolocation;
+const withReverseGeocoding: (_x: Partial<ReverseGeocodingData>) => NodeGeolocation = (x) => {
+	fakeGeolocationService.getReverseGeocoding = () => Promise.resolve({ address: x });
+	return fakeGeolocationService;
+};
 
 describe('transform data from NodeGeolocation to Address', () => {
 	const getGeolocator = (x: Partial<ReverseGeocodingData>) => new Geolocator(withReverseGeocoding(x));
+
+	test('should set geolocator data', async () => {
+		getGeolocator({
+			municipality: 'Wiesbaden',
+		});
+		expect(fakeGeolocationService.geocodingOptions).toBeDefined();
+		expect(fakeGeolocationService.geocodingOptions?.service).toEqual('Nominatim');
+	});
 
 	test('should simplify city names', async () => {
 		const geoFn = getGeolocator({
