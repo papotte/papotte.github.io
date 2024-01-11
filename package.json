@@ -56,7 +56,7 @@
 		"eslint-plugin-prettier-doc": "^1.1.0",
 		"husky": "^8.0.0",
 		"lint-staged": "^13.2.3",
-		"prettier": "^3.0.1",
+		"prettier": "^3.1.1",
 		"prettier-plugin-astro": "^0.11.0",
 		"prettier-plugin-css-order": "^2.0.0",
 		"prettier-plugin-tailwindcss": "^0.4.1",
