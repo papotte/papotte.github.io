@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import type { PersonalData } from '@/model';
+import type { ContentfulEntity, PersonalData } from '@/model';
 
-import { ContentfulEntity, parseEntry, parseEntryPropArray } from './contentful';
+import { parseEntry, parseEntryPropArray, sortByFieldAsc } from './contentful';
 import response from './contentful.mock.json';
 
 vi.mock('@lib/geolocation');
@@ -45,5 +45,24 @@ describe('contentful', () => {
 		const projects = await parseEntryPropArray(rawData, 'projects');
 		expect(projects[0].start).toEqual('Feb 2011');
 		expect(projects[0].end).toEqual('Dec 2013');
+	});
+
+	test('should sort by custom field', async () => {
+		const objectToSort = [
+			{ name: 'a', value: 5 },
+			{ name: 'b', value: 3 },
+			{ name: 'c', value: 7 },
+		];
+
+		const result = objectToSort.sort(sortByFieldAsc('value'));
+		expect(result[0].name).toEqual('c');
+	});
+
+	test('should return error when data is undefined', async () => {
+		await expect(
+			parseEntry({
+				fields: undefined,
+			})
+		).rejects.toThrowError('Personal data not found');
 	});
 });

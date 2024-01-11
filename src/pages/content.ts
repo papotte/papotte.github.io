@@ -1,4 +1,8 @@
-import { personalData } from '@lib/contentful';
+import { getPersonalData } from '@lib/contentful';
+
+import type { PersonalData } from '@/model';
+
+const personalData: PersonalData = await getPersonalData();
 
 // Personal Information --> #hero section
 export const name = personalData.displayName;

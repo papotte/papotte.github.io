@@ -1,5 +1,10 @@
 import type { Address } from './Address';
 
+export interface ContentfulEntity<T> {
+	contentTypeId: string;
+	fields: T;
+}
+
 export type ContentfulData = Partial<DatedEntity & LocatedEntity & AvatarEntity & { name: string }>;
 
 export interface AvatarEntity {
