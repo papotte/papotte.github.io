@@ -1,84 +1,88 @@
 .main {
-	@apply relative m-4 bg-white print:m-0;
-	font-size: 12px;
-	line-height: 1.5em;
-	font-family: Avenir, Verdana, sans-serif;
+  @apply relative m-4 bg-white print:m-0;
 
-	.a4 {
-		@apply container mx-auto w-[595px] bg-white px-12 py-16 drop-shadow-2xl print:w-full print:p-0 print:drop-shadow-none;
-	}
+  font-size: 12px;
+  line-height: 1.5em;
+  font-family: Avenir, Verdana, sans-serif;
 
-	.header {
-		@apply mb-10 flex items-end justify-between;
-		h1 {
-			@apply mb-2;
-		}
+  .a4 {
+    @apply container mx-auto w-[595px] bg-white px-12 py-16 drop-shadow-2xl print:w-full print:p-0 print:drop-shadow-none;
+  }
 
-		.data {
-			@apply flex flex-col italic text-tertiary-500;
+  .header {
+    @apply mb-10 flex items-end justify-between;
 
-			> * {
-				@apply justify-end text-end;
-			}
+    h1 {
+      @apply mb-2;
+    }
 
-			p {
-				@apply flex flex-row gap-1;
+    .data {
+      @apply flex flex-col italic text-tertiary-500;
 
-				svg {
-					@apply h-4 w-4;
-				}
-			}
-		}
-	}
+      > * {
+        @apply justify-end text-end;
+      }
 
-	.section {
-		@apply mb-8 mt-2;
+      p {
+        @apply flex flex-row gap-1;
 
-		> .title {
-			@apply grid grid-cols-6 items-end gap-4 text-primary-700;
+        svg {
+          @apply h-4 w-4;
+        }
+      }
+    }
+  }
 
-			&:before {
-				@apply col-span-1 mb-1 bg-primary-700;
-				height: 6px;
-				content: ' ';
-			}
+  .section {
+    @apply mb-8 mt-2;
 
-			> h3 {
-				@apply col-span-5;
-			}
-		}
+    > .title {
+      @apply grid grid-cols-6 items-end gap-4 text-primary-700;
 
-		> .block {
-			@apply my-2 grid grid-cols-6 gap-4;
+      &:before {
+        @apply col-span-1 mb-1 bg-primary-700;
 
-			> .date {
-				@apply col-span-1 text-right;
-			}
+        height: 6px;
+        content: ' ';
+      }
 
-			> .information {
-				@apply col-span-5;
+      > h3 {
+        @apply col-span-5;
+      }
+    }
 
-				> .title {
-					> span {
-						&:after {
-							content: ', ';
-						}
+    > .block {
+      @apply my-2 grid grid-cols-6 gap-4;
 
-						&:last-child:after {
-							content: '';
-						}
-					}
-				}
+      > .date {
+        @apply col-span-1 text-right;
+      }
 
-				> .description {
-					ul {
-						@apply list-[circle] pl-4 marker:text-primary;
-						p {
-							display: unset;
-						}
-					}
-				}
-			}
-		}
-	}
+      > .information {
+        @apply col-span-5;
+
+        > .title {
+          > span {
+            &:after {
+              content: ', ';
+            }
+
+            &:last-child:after {
+              content: '';
+            }
+          }
+        }
+
+        > .description {
+          ul {
+            @apply list-[circle] pl-4 marker:text-primary;
+
+            p {
+              display: unset;
+            }
+          }
+        }
+      }
+    }
+  }
 }
