@@ -1,8 +1,8 @@
+import { parseEntry, parseEntryPropArray, sortByFieldAsc } from '@lib/contentful';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import type { ContentfulEntity, PersonalData } from '@/model';
 
-import { parseEntry, parseEntryPropArray, sortByFieldAsc } from './contentful';
 import response from './contentful.mock.json';
 
 vi.mock('@lib/geolocation');

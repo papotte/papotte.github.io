@@ -1,9 +1,8 @@
+import { TransformData, dataTransformer } from '@lib/contentful-transformer';
 import type { Geolocator } from '@lib/geolocation';
 import { describe, expect, test } from 'vitest';
 
 import type { Address, AvatarEntity, DatedEntity, LocatedEntity, Position } from '@/model';
-
-import { TransformData, dataTransformer } from './contentful-transformer';
 
 const fakeGeolocatorWith: (x: Partial<Address>) => Geolocator = (x) =>
 	({

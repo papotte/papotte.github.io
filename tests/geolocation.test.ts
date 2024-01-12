@@ -1,8 +1,7 @@
+import { Geolocator } from '@lib/geolocation';
 import type NodeGeolocation from 'nodejs-geolocation';
 import type { ReverseGeocodingData } from 'nodejs-geolocation';
 import { describe, expect, test } from 'vitest';
-
-import { Geolocator } from './geolocation';
 
 const fakeGeolocationService: NodeGeolocation = {
 	geocodingOptions: {

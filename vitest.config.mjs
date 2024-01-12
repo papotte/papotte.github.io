@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+/// <reference types="vitest/globals" />
 import { getViteConfig } from 'astro/config';
 
 export default getViteConfig({

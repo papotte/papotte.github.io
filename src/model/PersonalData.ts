@@ -1,3 +1,5 @@
+import type { Document as ContentfulDocument } from '@contentful/rich-text-types';
+
 import type { Contact } from './Contact';
 import type { Education } from './Education';
 import type { Interests } from './Interests';
@@ -16,7 +18,7 @@ export interface PersonalData extends LocatedEntity, AvatarEntity {
 	email: string;
 	tagline: string;
 	title: string;
-	bio: string;
+	bio: ContentfulDocument;
 	avatar: string;
 	contact: Contact;
 	experience: JobExperience[];

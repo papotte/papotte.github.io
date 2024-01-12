@@ -6,14 +6,15 @@ import AccordionLayout from '@layouts/AccordionLayout.astro';
 import Card from './Card.astro';
 import { IconMap } from '@lib/style-helper';
 
-import * as CONTENT from '@pages/content';
+import * as CONTENT from '@/content';
+import { about } from '@/content';
 
-const SocialLinks = Object.entries<string>(CONTENT.socialLinks);
+const SocialLinks = Object.entries(CONTENT.socialLinks);
 ---
 
 <ul class="shadow-box">
 	<AccordionLayout title={'About'} icon={'mdi:account-badge-outline'}>
-		<Fragment set:html={documentToHtmlString(CONTENT.about)} />
+		<Fragment set:html={documentToHtmlString(about)} />
 	</AccordionLayout>
 	<AccordionLayout title={'Work'} icon={'ic:baseline-work-outline'}>
 		{

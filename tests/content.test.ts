@@ -1,8 +1,7 @@
 import { afterAll, describe, expect, it, vi } from 'vitest';
 
+import * as content from '@/content';
 import type { PersonalData } from '@/model';
-
-import * as content from './content';
 
 vi.mock('@lib/contentful', () => ({
 	getPersonalData: vi.fn().mockReturnValue(
