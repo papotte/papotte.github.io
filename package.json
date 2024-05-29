@@ -17,7 +17,8 @@
 		"lint:fix": "eslint . --fix",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"prepare": "npx husky install"
+		"prepare": "npx husky install",
+		"import": "ts-node ./tools/linkedin-importer.ts"
 	},
 	"lint-staged": {
 		"*.{ts,js,cjs,cts,json,astro}": [
@@ -38,13 +39,15 @@
 		"astro-icon": "^0.8.1",
 		"class-transformer": "^0.5.1",
 		"contentful": "^10.6.16",
+		"dotenv": "^16.4.5",
 		"flowbite": "^1.8.1",
 		"lodash.isempty": "^4.4.0",
 		"nodejs-geolocation": "^2.2.1",
 		"reflect-metadata": "^0.1.13",
 		"sass": "^1.64.2",
 		"tailwind-scrollbar": "^3.0.4",
-		"tailwindcss": "^3.3.3"
+		"tailwindcss": "^3.3.3",
+		"ts-node": "^10.9.2"
 	},
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
