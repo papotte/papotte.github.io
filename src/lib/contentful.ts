@@ -60,13 +60,25 @@ export const parseEntry = async (item: Partial<ContentfulEntity<PersonalData>>):
 	};
 };
 
-export const getPersonalData = async () =>
-	await createClient({
-		space: import.meta.env.CONTENTFUL_SPACE_ID,
-		accessToken: import.meta.env.DEV
-			? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
-			: import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
-		host: import.meta.env.DEV ? 'preview.contentful.com' : 'cdn.contentful.com',
-	})
-		.getEntries<ContentfulEntity<PersonalData>>(query)
-		.then(({ items }) => parseEntry(items[0]));
+export const getPersonalData = async () => {
+	try {
+		const client = createClient({
+			space: import.meta.env.CONTENTFUL_SPACE_ID,
+			accessToken: import.meta.env.DEV
+				? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
+				: import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
+			host: import.meta.env.DEV ? 'preview.contentful.com' : 'cdn.contentful.com',
+		});
+
+		const { items } = await client.getEntries<ContentfulEntity<PersonalData>>(query);
+
+		if (!items || items.length === 0) {
+			throw new Error('No personal data found in Contentful');
+		}
+
+		return await parseEntry(items[0]);
+	} catch (error) {
+		console.error('Error fetching personal data from Contentful:', error);
+		throw error;
+	}
+};
