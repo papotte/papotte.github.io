@@ -6,13 +6,13 @@ export const buttonColorLookup = {
 };
 
 export const IconMap = {
-	Email: 'mdi:email',
-	phone: 'mdi:phone',
-	website: 'mdi:web',
-	github: 'mdi:github',
-	linkedin: 'mdi:linkedin',
-	facebook: 'mdi:facebook',
-	twitter: 'mdi:twitter',
-	instagram: 'mdi:instagram',
-	telegram: 'mdi:telegram',
+	Email: 'ic:round-email',
+	phone: 'ic:round-phone',
+	website: 'ic:round-language',
+	github: 'logos:github-icon',
+	linkedin: 'logos:linkedin-icon',
+	facebook: 'logos:facebook',
+	twitter: 'logos:twitter',
+	instagram: 'logos:instagram-icon',
+	telegram: 'logos:telegram',
 };

@@ -13,10 +13,10 @@ const SocialLinks = Object.entries(CONTENT.socialLinks);
 ---
 
 <ul class="shadow-box">
-	<AccordionLayout title={'About'} icon={'mdi:account-badge-outline'}>
+	<AccordionLayout title={'About'} icon={'ic:round-account-circle'}>
 		<Fragment set:html={documentToHtmlString(about)} />
 	</AccordionLayout>
-	<AccordionLayout title={'Work'} icon={'ic:baseline-work-outline'}>
+	<AccordionLayout title={'Work'} icon={'ic:round-work-outline'}>
 		{
 			CONTENT.work.map((item: JobExperience) => {
 				return (
@@ -36,7 +36,7 @@ const SocialLinks = Object.entries(CONTENT.socialLinks);
 
 	{
 		CONTENT.projects.length > 0 && (
-			<AccordionLayout title={'Projects'} icon={'ion:md-build'}>
+			<AccordionLayout title={'Projects'} icon={'ic:baseline-build'}>
 				{CONTENT.projects.map((item) => {
 					return (
 						<Card
@@ -52,7 +52,7 @@ const SocialLinks = Object.entries(CONTENT.socialLinks);
 		)
 	}
 
-	<AccordionLayout title={'Education'} icon={'carbon:education'}>
+	<AccordionLayout title={'Education'} icon={'ic:round-school'}>
 		{
 			CONTENT.education.map((item: Education) => {
 				return (
@@ -71,7 +71,7 @@ const SocialLinks = Object.entries(CONTENT.socialLinks);
 
 	{
 		CONTENT.certificates.length > 0 && (
-			<AccordionLayout title={'Certifications'} icon={'carbon:certificate'}>
+			<AccordionLayout title={'Certifications'} icon={'ic:round-verified'}>
 				{CONTENT.certificates.map((item) => {
 					return (
 						<Card
@@ -117,7 +117,7 @@ const SocialLinks = Object.entries(CONTENT.socialLinks);
 		)
 	}
 
-	<AccordionLayout title={'Contact'} icon={'ri:contacts-book-fill'}>
+	<AccordionLayout title={'Contact'} icon={'ic:round-contacts'}>
 		{
 			CONTENT.contact.map((item) => (
 				<Card icon={IconMap[item.source_name]} url={item.source} url_name={item.source_name} />

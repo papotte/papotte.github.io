@@ -7,10 +7,10 @@ import { TechnicalSkills } from '@/model';
 const { value } = Astro.props;
 
 const IconMap = {
-	Language: 'mdi:xml',
+	Language: 'ic:round-code-off',
 	Framework: 'mdi:application-brackets-outline',
-	Tools: 'mdi:cogs',
-	Graphic: 'mdi:draw',
+	Tools: 'ic:round-settings-suggest',
+	Graphic: 'ic:round-draw',
 };
 const skillCategories: Map<string, TechnicalSkills[]> = value.reduce((acc, item: TechnicalSkills) => {
 	const keywords = item.keywords?.map((keyword) => keyword.trim()) || [];
