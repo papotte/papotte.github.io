@@ -14,17 +14,17 @@ const title = `CV | ${name}`;
 	<head>
 		<BaseHead title={title} />
 	</head>
-	<body class="bg-background text-text flex flex-col min-h-screen">
+	<body class="flex min-h-screen flex-col bg-background text-text">
 		<Header />
 
 		<!-- Bar Effect -->
-		<article class="mx-auto h-fit max-w-3xl w-[95vw] flex flex-nowrap bg-slate-400">
-			<div class="bg-primary-900 hover:scale-x-[2] w-full h-1.5" id="one"></div>
-			<div class="bg-accent-900 hover:scale-x-[2] w-full h-1.5" id="two"></div>
-			<div class="bg-secondary-900 hover:scale-x-[2] w-full h-1.5" id="three"></div>
+		<article class="mx-auto flex h-fit w-[95vw] max-w-3xl flex-nowrap bg-slate-400">
+			<div class="h-1.5 w-full bg-primary-900 hover:scale-x-[2]" id="one"></div>
+			<div class="h-1.5 w-full bg-accent-900 hover:scale-x-[2]" id="two"></div>
+			<div class="h-1.5 w-full bg-secondary-900 hover:scale-x-[2]" id="three"></div>
 		</article>
 
-		<main class="mx-auto flex-grow max-h-[90vh] md:max-h-[70vh] max-w-3xl overflow-y-scroll grid gap-5 p-5 w-[95vw]">
+		<main class="mx-auto grid max-h-[90vh] w-[95vw] max-w-3xl flex-grow gap-5 overflow-y-scroll p-5 md:max-h-[70vh]">
 			<Container />
 		</main>
 

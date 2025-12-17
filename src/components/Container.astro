@@ -110,26 +110,20 @@ const SocialLinks = Object.entries(CONTENT.socialLinks);
 	{
 		CONTENT.achievements.length > 0 && (
 			<AccordionLayout title={'Achievements'} icon={'mdi:trophy-award'}>
-				{CONTENT.achievements.map((item) => {
-					return;
-					<Card title={item.title} start={item.year} description={item.decription} url="#" url_name="" />;
-				})}
+				{CONTENT.achievements.map((item) => (
+					<Card title={item.title} start={item.year} description={item.decription} url="#" url_name="" />
+				))}
 			</AccordionLayout>
 		)
 	}
 
 	<AccordionLayout title={'Contact'} icon={'ri:contacts-book-fill'}>
 		{
-			CONTENT.contact.map((item) => {
-				return;
-				<Card icon={IconMap[item.source_name]} url={item.source} url_name={item.source_name} />;
-			})
+			CONTENT.contact.map((item) => (
+				<Card icon={IconMap[item.source_name]} url={item.source} url_name={item.source_name} />
+			))
 		}
-		{
-			SocialLinks.map(([name, url]) => {
-				return;
-				<Card icon={IconMap[name]} url={url} url_name={name} />;
-			})
-		}
+
+		{SocialLinks.map(([name, url]) => <Card icon={IconMap[name]} url={url} url_name={name} />)}
 	</AccordionLayout>
 </ul>

@@ -4,24 +4,24 @@ import * as CONTENT from '@/content';
 
 <!-- Hero section -->
 <header class="mx-auto py-8">
-	<article class="grid grid-cols-3 grid-rows-1 place-items-center w-[98vw] max-w-2xl">
-		<div class="rounded-full border-primary self-end shadow-2xl md:w-24 w-20 aspect-square">
+	<article class="grid w-[98vw] max-w-2xl grid-cols-3 grid-rows-1 place-items-center">
+		<div class="aspect-square w-20 self-end rounded-full border-primary shadow-2xl md:w-24">
 			<img
 				src={CONTENT.avatar}
 				alt="Avatar"
-				class="object-cover w-full h-full rounded-full grayscale-[50] hover:grayscale-0"
+				class="h-full w-full rounded-full object-cover grayscale-[50] hover:grayscale-0"
 			/>
 		</div>
 
-		<div class="grid text-center self-center whitespace-nowrap">
+		<div class="grid self-center whitespace-nowrap text-center">
 			<h1 class="text-3xl text-text">{CONTENT.name}</h1>
 			<h3 class="text-lg text-text/90">{CONTENT.designation}</h3>
 			<h5 class="text-sm text-text/80">{CONTENT.location.city}, {CONTENT.location.country}</h5>
 		</div>
 
-		<div class="md:grid text-right self-end hidden">
+		<div class="hidden self-end text-right md:grid">
 			<h6 class="text-sm text-text/70">{CONTENT.pronouns}</h6>
-			<a href={CONTENT.website} target="_blank" class="hover:text-blue-300 flex items-center justify-center">
+			<a href={CONTENT.website} target="_blank" class="flex items-center justify-center hover:text-blue-300">
 				{CONTENT.website}
 			</a>
 		</div>
