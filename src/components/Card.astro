@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import Tag from './Tag.astro';
@@ -9,10 +9,10 @@ const { start, end, title, description, url, tags = [], url_name, icon } = Astro
 ---
 
 <div
-	class="grid grid-cols-3 grid-rows-1 w-full p-2 place-items-center border-b-[1px] border-dashed py-8 border-text/25"
+	class="grid w-full grid-cols-3 grid-rows-1 place-items-center border-b-[1px] border-dashed border-text/25 p-2 py-8"
 >
 	<div class="self-start justify-self-start">
-		<p class="text-text/50 text-base">
+		<p class="text-base text-text/50">
 			{start && `${start} – `}
 			{end}
 		</p>
@@ -32,11 +32,11 @@ const { start, end, title, description, url, tags = [], url_name, icon } = Astro
 		<a
 			href={url}
 			target="_blank"
-			class="text-base text-right text-text/60 hover:text-text/80 flex justify-center items-center gap-2"
+			class="flex items-center justify-center gap-2 text-right text-base text-text/60 hover:text-text/80"
 		>
-			{icon && <Icon name={icon} class="w-8 h-8" />}
+			{icon && <Icon name={icon} class="h-8 w-8" />}
 			{url_name}
-			{url !== '#' && <Icon name="icon-park-outline:unlink" class="w-4 h-4" />}
+			{url !== '#' && <Icon name="ic:baseline-link-off" class="h-4 w-4" />}
 		</a>
 	</div>
 </div>

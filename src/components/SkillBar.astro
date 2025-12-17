@@ -5,12 +5,12 @@ const LevelMap = ['', 'Beginner', 'Basic', 'Intermediate', 'Proficient', 'Advanc
 ---
 
 <div class="w-full">
-	<div class="flex flex-row bg-2 justify-between items-start">
-		<div class="text-tertiary font-medium">{name}</div>
-		<div class="text-tertiary text-xs font-light hidden md:visible">{LevelMap[level]}</div>
+	<div class="bg-2 flex flex-row items-start justify-between">
+		<div class="font-medium text-tertiary">{name}</div>
+		<div class="hidden text-xs font-light text-tertiary md:visible">{LevelMap[level]}</div>
 	</div>
 
-	<div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+	<div class="mb-4 h-4 w-full rounded-full bg-gray-200">
 		<div class={`bg-accent h-4 rounded-full w-${level}/5`}></div>
 	</div>
 </div>

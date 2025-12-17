@@ -1,34 +1,34 @@
 ---
-import Icon from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 
 const accessToken = import.meta.env.WEB3FORMS_ACCESS_TOKEN;
 ---
 
 <section id="contact">
-	<div class="text-center flex-col gap-x-4 gap-y-8 lg:gap-y-16">
-		<h1 class="text-4xl font-extrabold tracking-tight leading-none text-justify md:text-5xl lg:text-6xl">
+	<div class="flex-col gap-x-4 gap-y-8 text-center lg:gap-y-16">
+		<h1 class="text-justify text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl">
 			Get in touch
 		</h1>
-		<div class="flex flex-col md:flex-row gap-8 justify-between w-full">
+		<div class="flex w-full flex-col justify-between gap-8 md:flex-row">
 			<form
 				action="https://api.web3forms.com/submit"
 				method="POST"
-				class="flex flex-col text-text gap-6 w-2/3 text-left mx-auto"
+				class="mx-auto flex w-2/3 flex-col gap-6 text-left text-text"
 			>
 				<input type="hidden" name="access_key" value={accessToken} />
 				<div>
-					<label for="name" class="block mb-2 text-sm font-medium">
+					<label for="name" class="mb-2 block text-sm font-medium">
 						Your name
 						<div class="relative">
-							<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
-								<Icon name="mdi:account" class="w-4 h-4" />
+							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-accent">
+								<Icon name="ic:round-person" class="h-4 w-4" />
 							</div>
 							<input
 								type="text"
 								id="name"
 								autocomplete="name"
 								name="name"
-								class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
+								class="block w-full rounded-lg border border-primary-600 bg-white p-2.5 pl-10 text-sm focus:border-primary-500 focus:ring-primary-500"
 								placeholder="Your full name"
 								required
 							/>
@@ -36,11 +36,11 @@ const accessToken = import.meta.env.WEB3FORMS_ACCESS_TOKEN;
 					</label>
 				</div>
 				<div>
-					<label for="email-address-icon" class="block mb-2 text-sm font-medium">
+					<label for="email-address-icon" class="mb-2 block text-sm font-medium">
 						Your Email
 						<div class="relative">
-							<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
-								<Icon name="mdi:at" class="w-4 h-4" />
+							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-accent">
+								<Icon name="ic:baseline-alternate-email" class="h-4 w-4" />
 							</div>
 							<input
 								type="email"
@@ -48,38 +48,38 @@ const accessToken = import.meta.env.WEB3FORMS_ACCESS_TOKEN;
 								autocomplete="email"
 								required
 								id="email-address-icon"
-								class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
+								class="block w-full rounded-lg border border-primary-600 bg-white p-2.5 pl-10 text-sm focus:border-primary-500 focus:ring-primary-500"
 								placeholder="name@email.com"
 							/>
 						</div>
 					</label>
 				</div>
 				<div>
-					<label for="message" class="block mb-2 text-sm font-medium">
+					<label for="message" class="mb-2 block text-sm font-medium">
 						Your message
 						<div class="relative">
-							<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-accent">
-								<Icon name="mdi:message-processing" class="w-4 h-4" />
+							<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-accent">
+								<Icon name="ic:round-message" class="h-4 w-4" />
 							</div>
 							<textarea
 								id="message"
 								name="message"
 								rows="4"
 								required
-								class="bg-white border border-primary-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5"
+								class="block w-full rounded-lg border border-primary-600 bg-white p-2.5 pl-10 text-sm focus:border-primary-500 focus:ring-primary-500"
 								placeholder="Leave a message..."></textarea>
 						</div>
 					</label>
 				</div>
 
 				<div class="h-captcha self-center md:self-start" data-captcha="true"></div>
-				<div class="flex items-start mb-6">
-					<button type="submit" class="button-primary font-medium text-sm w-full sm:w-auto">Submit</button>
+				<div class="mb-6 flex items-start">
+					<button type="submit" class="button-primary w-full text-sm font-medium sm:w-auto">Submit</button>
 				</div>
 			</form>
 
-			<div class="border-primary self-center w-48 md:w-96">
-				<img src="mention.svg" alt="Person holding a phone" class="object-cover w-full h-full" />
+			<div class="w-48 self-center border-primary md:w-96">
+				<img src="mention.svg" alt="Person holding a phone" class="h-full w-full object-cover" />
 			</div>
 		</div>
 	</div>

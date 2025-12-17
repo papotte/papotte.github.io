@@ -1,7 +1,7 @@
 ---
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
-import { Icon } from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 
 import { Education, Interests, JobExperience, Language, Project, TechnicalSkills } from '@/model';
 import BaseHead from '@layouts/BaseHead.astro';
@@ -63,7 +63,13 @@ const title = `${CONTENT.name}'s CV`;
 					</div>
 
 					<div class="data">
-						<p>{CONTENT.location.city}, {CONTENT.location.country}</p>
+						{
+							CONTENT.location && (
+								<p>
+									{CONTENT.location.city}, {CONTENT.location.country}
+								</p>
+							)
+						}
 						{
 							contactInfo.map(({ icon, label }) => {
 								return (

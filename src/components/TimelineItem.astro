@@ -3,19 +3,19 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 const { title, subtitle, description, time, labels } = Astro.props;
 ---
 
-<li class="relative group flex py-8 w-1/2 flex-row even:flex-row-reverse self-end even:self-start gap-x-4">
-	<div class="absolute w-[1px] h-full bg-accent"></div>
+<li class="group relative flex w-1/2 flex-row gap-x-4 self-end py-8 even:flex-row-reverse even:self-start">
+	<div class="absolute h-full w-[1px] bg-accent"></div>
 	<div
-		class="block items-center justify-center w-6 h-6 rounded-full bg-accent flex-none group-odd:-ml-3 group-even:-mr-3"
+		class="block h-6 w-6 flex-none items-center justify-center rounded-full bg-accent group-odd:-ml-3 group-even:-mr-3"
 	>
 	</div>
 
-	<div class="flex flex-col truncate whitespace-normal text-tertiary-900 gap-2 items-start group-even:items-end pt-1">
-		<time class="block mb-2 font-bold leading-none text-tertiary-600">{time}</time>
+	<div class="flex flex-col items-start gap-2 truncate whitespace-normal pt-1 text-tertiary-900 group-even:items-end">
+		<time class="mb-2 block font-bold leading-none text-tertiary-600">{time}</time>
 
 		<h2 class="font-bold text-primary">{title}</h2>
 		<h3>{subtitle}</h3>
-		<div class="font-normal text-tertiary-600 text-start group-even:text-end">
+		<div class="text-start font-normal text-tertiary-600 group-even:text-end">
 			<Fragment set:html={documentToHtmlString(description)} />
 		</div>
 
@@ -23,7 +23,7 @@ const { title, subtitle, description, time, labels } = Astro.props;
 			{
 				labels &&
 					labels.map((label) => (
-						<span class="inline-block text-xs font-medium text-secondary-800 dark:text-secondary-400 bg-secondary-100 dark:bg-secondary-800 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+						<span class="inline-block whitespace-nowrap rounded-full bg-secondary-100 px-2.5 py-0.5 text-xs font-medium text-secondary-800 dark:bg-secondary-800 dark:text-secondary-400">
 							{label}
 						</span>
 					))

@@ -1,31 +1,31 @@
 ---
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
-import Icon from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 const { title, description } = Astro.props;
 ---
 
 <section id="about">
 	<div class="text-center">
-		<h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-justify md:text-5xl lg:text-6xl">
+		<h1 class="mb-4 text-justify text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl">
 			{title}
 		</h1>
 		<div
-			class="my-8 text-lg font-normal text-justify lg:text-xl flex flex-col-reverse md:flex-row gap-x-24 gap-y-8 items-center"
+			class="my-8 flex flex-col-reverse items-center gap-x-24 gap-y-8 text-justify text-lg font-normal md:flex-row lg:text-xl"
 		>
 			<div class="grow">
 				<Fragment set:html={documentToHtmlString(description)} />
 			</div>
 			<div class="">
-				<div class="border-primary self-end w-48 md:w-96">
-					<img src="dev-cat.svg" alt="Avatar" class="object-cover w-full h-full" />
+				<div class="w-48 self-end border-primary md:w-96">
+					<img src="dev-cat.svg" alt="Avatar" class="h-full w-full object-cover" />
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0 sm:space-x-4">
-			<a href="#contact" class="inline-flex font-medium button-primary">
+		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-x-4 sm:space-y-0">
+			<a href="#contact" class="button-primary inline-flex font-medium">
 				Contact me
-				<Icon name="mdi:arrow-down" class="w-6 h-6 ml-2" />
+				<Icon name="ic:round-arrow-downward" class="ml-2 h-6 w-6" />
 			</a>
 		</div>
 	</div>
