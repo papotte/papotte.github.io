@@ -9,6 +9,9 @@ import prettierDoc from 'eslint-plugin-prettier-doc';
 import astroParser from 'astro-eslint-parser';
 
 export default [
+	{
+		ignores: ['node_modules/**', 'dist/**', '.astro/**', '.vercel/**', 'coverage/**'],
+	},
 	js.configs.recommended,
 	{
 		plugins: {
