@@ -63,7 +63,13 @@ const title = `${CONTENT.name}'s CV`;
 					</div>
 
 					<div class="data">
-						<p>{CONTENT.location.city}, {CONTENT.location.country}</p>
+						{
+							CONTENT.location && (
+								<p>
+									{CONTENT.location.city}, {CONTENT.location.country}
+								</p>
+							)
+						}
 						{
 							contactInfo.map(({ icon, label }) => {
 								return (
