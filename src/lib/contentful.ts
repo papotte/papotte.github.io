@@ -1,5 +1,5 @@
 import { TransformData } from '@lib/contentful-transformer';
-import contentful from 'contentful';
+import { createClient } from 'contentful';
 import isEmpty from 'lodash.isempty';
 
 import type {
@@ -61,13 +61,12 @@ export const parseEntry = async (item: Partial<ContentfulEntity<PersonalData>>):
 };
 
 export const getPersonalData = async () =>
-	await contentful
-		.createClient({
-			space: import.meta.env.CONTENTFUL_SPACE_ID,
-			accessToken: import.meta.env.DEV
-				? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
-				: import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
-			host: import.meta.env.DEV ? 'preview.contentful.com' : 'cdn.contentful.com',
-		})
+	await createClient({
+		space: import.meta.env.CONTENTFUL_SPACE_ID,
+		accessToken: import.meta.env.DEV
+			? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
+			: import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
+		host: import.meta.env.DEV ? 'preview.contentful.com' : 'cdn.contentful.com',
+	})
 		.getEntries<ContentfulEntity<PersonalData>>(query)
 		.then(({ items }) => parseEntry(items[0]));
