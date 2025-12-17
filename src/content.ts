@@ -2,7 +2,10 @@ import { getPersonalData } from '@lib/contentful';
 
 import type { PersonalData } from '@/model';
 
+console.log('[Content] Starting to fetch personal data...');
+const fetchStart = Date.now();
 const personalData: PersonalData = await getPersonalData();
+console.log(`[Content] Personal data fetched successfully in ${Date.now() - fetchStart}ms`);
 
 // Personal Information --> #hero section
 export const name = personalData.displayName;
