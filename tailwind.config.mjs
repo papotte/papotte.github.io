@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 const { createThemes } = require('tw-colors');
 
-module.exports = {
+export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}', './node_modules/flowbite/**/*.js'],
 	safelist: ['w-1/5', 'w-2/5', 'w-3/5', 'w-4/5', 'w-5/5'],
 	plugins: [
