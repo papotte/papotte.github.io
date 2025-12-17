@@ -12,6 +12,14 @@
   .header {
     @apply mb-10 flex items-end justify-between;
 
+    // Print: stack header in single column for better ATS parsing
+    @media print {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
     h1 {
       @apply mb-2;
     }
@@ -23,11 +31,34 @@
         @apply justify-end text-end;
       }
 
+      // Print: left-align for better ATS reading order
+      @media print {
+        > * {
+          justify-content: flex-start;
+          text-align: start;
+        }
+      }
+
       p {
         @apply flex flex-row gap-1;
 
         svg {
           @apply h-4 w-4;
+        }
+      }
+
+      // Print: ensure contact info is text-only for ATS
+      .contact {
+        .icon-wrapper {
+          @media print {
+            display: none;
+          }
+        }
+
+        .contact-label {
+          @media print {
+            font-style: normal;
+          }
         }
       }
     }
@@ -46,20 +77,54 @@
         content: ' ';
       }
 
-      > h3 {
+      > h2 {
         @apply col-span-5;
+      }
+
+      // Print: simplify section title styling for ATS
+      @media print {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.5rem;
+
+        &::before {
+          width: 40px;
+          flex-shrink: 0;
+        }
       }
     }
 
     > .block {
       @apply my-2 grid grid-cols-6 gap-4;
 
+      // Print: use single column layout for better ATS parsing
+      @media print {
+        display: block;
+        page-break-inside: avoid;
+      }
+
       > .date {
         @apply col-span-1 text-right;
+
+        // Print: inline with information for better reading order
+        @media print {
+          display: inline;
+          font-weight: 600;
+
+          &::after {
+            content: ': ';
+          }
+        }
       }
 
       > .information {
         @apply col-span-5;
+
+        // Print: ensure proper display
+        @media print {
+          display: inline;
+        }
 
         > .title {
           > span {
@@ -81,8 +146,56 @@
               display: unset;
             }
           }
+
+          // Print: simplify columns for ATS
+          @media print {
+            column-count: 1 !important;
+          }
         }
       }
+    }
+  }
+
+  // Print-specific optimizations for ATS compatibility
+  @media print {
+    // Avoid CSS properties that cause rasterization
+    * {
+      transform: none !important;
+      filter: none !important;
+      backdrop-filter: none !important;
+      mix-blend-mode: normal !important;
+    }
+
+    // Ensure all text is selectable (not rendered as image)
+    body,
+    div,
+    p,
+    span,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    li {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    // Hide all SVG icons
+    svg {
+      display: none !important;
+    }
+
+    // Optimize page breaks
+    h1,
+    h2 {
+      page-break-after: avoid;
+    }
+
+    .section {
+      page-break-inside: avoid;
     }
   }
 }
