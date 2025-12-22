@@ -59,7 +59,7 @@
 		"@types/lodash.isempty": "^4.4.9",
 		"@types/node": "^25.0.3",
 		"@typescript-eslint/eslint-plugin": "^8.50.0",
-		"@typescript-eslint/parser": "^8.50.0",
+		"@typescript-eslint/parser": "^8.50.1",
 		"@vercel/analytics": "^1.6.1",
 		"@vitest/coverage-v8": "^4.0.16",
 		"@vitest/ui": "^4.0.16",
