@@ -56,7 +56,7 @@ const title = `${CONTENT.name}'s CV`;
 				<Print />
 			</div>
 			<div class="a4">
-				<div class="header">
+				<header class="header">
 					<div class="title">
 						<h1>{CONTENT.name}</h1>
 						<p>{CONTENT.designation}</p>
@@ -74,17 +74,19 @@ const title = `${CONTENT.name}'s CV`;
 							contactInfo.map(({ icon, label }) => {
 								return (
 									<p class="contact">
-										{icon && <Icon name={icon} />}
-										{label}
+										<span class="icon-wrapper print:hidden" aria-hidden="true">
+											{icon && <Icon name={icon} />}
+										</span>
+										<span class="contact-label">{label}</span>
 									</p>
 								);
 							})
 						}
 					</div>
-				</div>
+				</header>
 
-				<div class="section">
-					<div class="title"><h3>Work Experience</h3></div>
+				<section class="section" aria-label="Work Experience">
+					<div class="title"><h2>Work Experience</h2></div>
 					{
 						CONTENT.work.map((job: JobExperience) => {
 							return (
@@ -108,9 +110,9 @@ const title = `${CONTENT.name}'s CV`;
 							);
 						})
 					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>Education</h3></div>
+				</section>
+				<section class="section" aria-label="Education">
+					<div class="title"><h2>Education</h2></div>
 					{
 						CONTENT.education.map((edu: Education) => {
 							return (
@@ -134,9 +136,9 @@ const title = `${CONTENT.name}'s CV`;
 							);
 						})
 					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>Language Skills</h3></div>
+				</section>
+				<section class="section" aria-label="Language Skills">
+					<div class="title"><h2>Language Skills</h2></div>
 					{
 						CONTENT.languages.map((item: Language) => {
 							return (
@@ -151,9 +153,9 @@ const title = `${CONTENT.name}'s CV`;
 							);
 						})
 					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>IT Skills</h3></div>
+				</section>
+				<section class="section" aria-label="IT Skills">
+					<div class="title"><h2>IT Skills</h2></div>
 					{
 						skillList.map(([label, item]) => {
 							return (
@@ -170,9 +172,9 @@ const title = `${CONTENT.name}'s CV`;
 							);
 						})
 					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>Projects</h3></div>
+				</section>
+				<section class="section" aria-label="Projects">
+					<div class="title"><h2>Projects</h2></div>
 					{
 						CONTENT.projects.map((item: Project) => {
 							return (
@@ -194,9 +196,9 @@ const title = `${CONTENT.name}'s CV`;
 							);
 						})
 					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>Interests</h3></div>
+				</section>
+				<section class="section" aria-label="Interests">
+					<div class="title"><h2>Interests</h2></div>
 					<div class="block">
 						<div class="date"></div>
 						<div class="information">
@@ -209,7 +211,7 @@ const title = `${CONTENT.name}'s CV`;
 							</div>
 						</div>
 					</div>
-				</div>
+				</section>
 			</div>
 		</div>
 	</body>
