@@ -13,12 +13,15 @@ export default {
 			addBase({
 				h1: {
 					fontSize: theme('fontSize.3xl'),
+					lineHeight: theme('fontSize.3xl'),
 				},
 				h2: {
 					fontSize: theme('fontSize.2xl'),
+					lineHeight: theme('fontSize.2xl'),
 				},
 				h3: {
 					fontSize: theme('fontSize.xl'),
+					lineHeight: theme('fontSize.xl'),
 				},
 				p: {
 					marginBottom: '1em',
