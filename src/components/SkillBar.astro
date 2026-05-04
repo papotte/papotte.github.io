@@ -2,15 +2,18 @@
 const { name, level = 1 } = Astro.props;
 
 const LevelMap = ['', 'Beginner', 'Basic', 'Intermediate', 'Proficient', 'Advanced'];
+
+const widthByLevel = ['', 'w-1/5', 'w-2/5', 'w-3/5', 'w-4/5', 'w-5/5'] as const;
+const barWidth = widthByLevel[level] ?? 'w-1/5';
 ---
 
 <div class="w-full">
-	<div class="bg-2 flex flex-row items-start justify-between">
-		<div class="font-medium text-tertiary">{name}</div>
-		<div class="hidden text-xs font-light text-tertiary md:visible">{LevelMap[level]}</div>
+	<div class="flex flex-row items-start justify-between">
+		<div class="font-medium text-slate-600">{name}</div>
+		<div class="hidden text-xs font-light text-slate-600 md:block">{LevelMap[level]}</div>
 	</div>
 
 	<div class="mb-4 h-4 w-full rounded-full bg-gray-200">
-		<div class={`bg-accent h-4 rounded-full w-${level}/5`}></div>
+		<div class:list={['h-4 rounded-full bg-pink-600', barWidth]}></div>
 	</div>
 </div>

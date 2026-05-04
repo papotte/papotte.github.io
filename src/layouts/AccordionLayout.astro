@@ -5,10 +5,10 @@ import BaseLayout from './BaseLayout.astro';
 ---
 
 <BaseLayout>
-	<li class="relative border-b border-text/30" x-data="{selected:null}">
+	<li class="relative border-b border-slate-100/30" x-data="{selected:null}">
 		<button type="button" class="w-full px-3 py-3 text-left" @click="selected !== 1 ? selected = 1 : selected = null">
 			<div class="flex items-center justify-between">
-				<h4 class="flex items-start justify-center font-mono text-2xl text-text/80 hover:text-text/95">
+				<h4 class="flex items-start justify-center font-mono text-2xl text-slate-100/80 hover:text-slate-100/95">
 					<Icon name={icon} class="mr-4 h-8 w-8" />
 					{title}
 				</h4>
@@ -27,7 +27,7 @@ import BaseLayout from './BaseLayout.astro';
 			x-ref="container1"
 			x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''"
 		>
-			<div class="px-2 py-4 text-text/60">
+			<div class="px-2 py-4 text-slate-100/60">
 				<slot />
 			</div>
 		</div>

@@ -1,3 +1,5 @@
+@reference './tailwind.css';
+
 .main {
   @apply relative m-4 bg-white print:m-0;
 
@@ -17,7 +19,7 @@
     }
 
     .data {
-      @apply flex flex-col italic text-tertiary-500;
+      @apply flex flex-col text-slate-500 italic;
 
       > * {
         @apply justify-end text-end;
@@ -34,13 +36,13 @@
   }
 
   .section {
-    @apply mb-8 mt-2;
+    @apply mt-2 mb-8;
 
     > .title {
-      @apply grid grid-cols-6 items-end gap-4 text-primary-700;
+      @apply grid grid-cols-6 items-end gap-4 text-sky-700;
 
       &::before {
-        @apply col-span-1 mb-1 bg-primary-700;
+        @apply col-span-1 mb-1 bg-sky-700;
 
         height: 6px;
         content: ' ';
@@ -75,7 +77,7 @@
 
         > .description {
           ul {
-            @apply list-[circle] pl-4 marker:text-primary;
+            @apply list-[circle] pl-4 marker:text-sky-700;
 
             p {
               display: unset;

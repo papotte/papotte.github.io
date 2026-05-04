@@ -17,31 +17,22 @@ const title = `CV | ${name}`;
 	<head>
 		<BaseHead title={title} />
 	</head>
-	<body class="flex min-h-screen flex-col bg-background text-text">
+	<body class="bg-base-100 text-base-content flex min-h-screen flex-col">
 		<NavBar />
 		<Jumbotron title={data.tagline} description={data.bio} />
 		<DevSkills value={skills} />
 		<Timeline value={work} />
 		<Contact />
 		<Footer links={social} />
-		<script>
-			import 'flowbite';
-		</script>
 
 		<style is:global lang="scss">
-			nav,
-			section,
-			footer,
-			header {
-				> div {
-					@apply mx-10 flex px-4 py-8 md:mx-auto md:max-w-screen-xl lg:py-16;
-				}
-			}
+			@reference '../styles/tailwind.css';
 
+			header,
 			section,
 			footer {
 				> div {
-					@apply flex-col;
+					@apply mx-10 flex flex-col px-4 py-8 md:mx-auto md:max-w-screen-xl lg:py-16;
 				}
 			}
 		</style>

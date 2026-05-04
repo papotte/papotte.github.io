@@ -8,22 +8,20 @@ const { start, end, title, description, url, tags = [], url_name, icon } = Astro
 // Maybe add an option to not put start & end but just start?
 ---
 
-<div
-	class="grid w-full grid-cols-3 grid-rows-1 place-items-center border-b-[1px] border-dashed border-text/25 p-2 py-8"
->
+<div class="grid w-full grid-cols-3 grid-rows-1 place-items-center border-b border-dashed border-slate-100/25 p-2 py-8">
 	<div class="self-start justify-self-start">
-		<p class="text-base text-text/50">
+		<p class="text-base text-slate-100/50">
 			{start && `${start} – `}
 			{end}
 		</p>
 	</div>
 
 	<div class="self-start justify-self-start text-left">
-		<p class="text-lg text-text/80">{title}</p>
-		<p class="text-sm text-text/70">
+		<p class="text-lg text-slate-100/80">{title}</p>
+		<p class="text-sm text-slate-100/70">
 			<Fragment set:html={documentToHtmlString(description)} />
 		</p>
-		<sub class="flex flex-wrap gap-2 text-xs text-text/60">
+		<sub class="flex flex-wrap gap-2 text-xs text-slate-100/60">
 			{tags.map((item: string) => <Tag value={item} />)}
 		</sub>
 	</div>
@@ -32,7 +30,7 @@ const { start, end, title, description, url, tags = [], url_name, icon } = Astro
 		<a
 			href={url}
 			target="_blank"
-			class="flex items-center justify-center gap-2 text-right text-base text-text/60 hover:text-text/80"
+			class="flex items-center justify-center gap-2 text-right text-base text-slate-100/60 hover:text-slate-100/80"
 		>
 			{icon && <Icon name={icon} class="h-8 w-8" />}
 			{url_name}

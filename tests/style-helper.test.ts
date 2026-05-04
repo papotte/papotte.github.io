@@ -3,10 +3,10 @@ import { expect, it } from 'vitest';
 
 it('should have button styles', () => {
 	expect(buttonColorLookup).toBeDefined();
-	expect(buttonColorLookup.primary).toMatch('bg-primary-100');
-	expect(buttonColorLookup.accent).toMatch('bg-accent-100');
-	expect(buttonColorLookup.blue).toMatch('bg-blue-100');
-	expect(buttonColorLookup.red).toMatch('bg-red-100');
+	expect(buttonColorLookup.primary).toMatch('badge-primary');
+	expect(buttonColorLookup.accent).toMatch('badge-accent');
+	expect(buttonColorLookup.blue).toMatch('badge-info');
+	expect(buttonColorLookup.red).toMatch('badge-error');
 });
 
 it('should have icon map', () => {

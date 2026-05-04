@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+@plugin 'daisyui' {
+  themes:
+    light --default,
+    dark;
+}
+@source '../**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}';

@@ -7,7 +7,7 @@ const { title, description } = Astro.props;
 
 <section id="about">
 	<div class="text-center">
-		<h1 class="mb-4 text-justify text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl">
+		<h1 class="mb-4 text-justify text-4xl leading-none font-extrabold tracking-tight md:text-5xl lg:text-6xl">
 			{title}
 		</h1>
 		<div
@@ -17,13 +17,13 @@ const { title, description } = Astro.props;
 				<Fragment set:html={documentToHtmlString(description)} />
 			</div>
 			<div class="">
-				<div class="w-48 self-end border-primary md:w-96">
+				<div class="border-primary w-48 self-end rounded-sm border-2 md:w-96">
 					<img src="dev-cat.svg" alt="Avatar" class="h-full w-full object-cover" />
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-x-4 sm:space-y-0">
-			<a href="#contact" class="button-primary inline-flex font-medium">
+		<div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0 sm:space-x-4">
+			<a href="#contact" class="btn btn-primary inline-flex font-medium">
 				Contact me
 				<Icon name="ic:round-arrow-downward" class="ml-2 h-6 w-6" />
 			</a>
