@@ -18,6 +18,7 @@ export async function getContent() {
 
 		// About
 		about: personalData.bio,
+		cvAbout: personalData.shortBio ?? personalData.bio,
 
 		// Work Experience --> #work section
 		work: personalData.experience,

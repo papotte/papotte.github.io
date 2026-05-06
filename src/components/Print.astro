@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-const { color = 'secondary' } = Astro.props;
+const { color = 'primary' } = Astro.props;
 
 const colorVariants: Record<string, string> = {
 	primary: 'btn-primary',
@@ -20,7 +20,7 @@ const colorVariants: Record<string, string> = {
 		constructor() {
 			super();
 			const button = this.querySelector('button');
-			button.addEventListener('click', () => {
+			button?.addEventListener('click', () => {
 				window.print();
 			});
 		}

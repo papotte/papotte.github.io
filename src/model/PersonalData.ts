@@ -22,6 +22,7 @@ export interface PersonalData extends AvatarEntity {
 	tagline: string;
 	title: string;
 	bio: ContentfulDocument;
+	shortBio?: ContentfulDocument;
 	avatar: string;
 	contact: Contact;
 	experience: JobExperience[];

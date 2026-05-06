@@ -1,10 +1,6 @@
-import type { ContentfulData } from '@/model';
+import { formatLongMonthYear } from '@lib/date';
 
-const locales = 'en-US';
-const localeOptions: Intl.DateTimeFormatOptions = {
-	year: 'numeric',
-	month: 'short',
-};
+import type { ContentfulData } from '@/model';
 
 export async function TransformData<T extends ContentfulData>({ fields: contentfulData }: any): Promise<T> {
 	const resultingData = { ...contentfulData };
@@ -12,11 +8,11 @@ export async function TransformData<T extends ContentfulData>({ fields: contentf
 
 	if (contentfulData?.startDate) {
 		resultingData.startDate = new Date(contentfulData.startDate);
-		resultingData.start = resultingData.startDate.toLocaleDateString(locales, localeOptions);
+		resultingData.start = formatLongMonthYear(resultingData.startDate);
 	}
 	if (contentfulData?.endDate) {
 		resultingData.endDate = new Date(contentfulData.endDate);
-		resultingData.end = resultingData.endDate.toLocaleDateString(locales, localeOptions);
+		resultingData.end = formatLongMonthYear(resultingData.endDate);
 	}
 	if (contentfulData?.avatar) {
 		resultingData.avatar = contentfulData.avatar?.fields?.file.url;
