@@ -1,56 +1,77 @@
 import { getPersonalData } from '@lib/contentful';
 
-import type { PersonalData } from '@/model';
+export async function getContent() {
+	console.log('[Content] Loading personal data...');
+	const fetchStart = Date.now();
+	const personalData = await getPersonalData();
+	console.log(`[Content] Personal data loaded in ${Date.now() - fetchStart}ms`);
 
-console.log('[Content] Starting to fetch personal data...');
-const fetchStart = Date.now();
-const personalData: PersonalData = await getPersonalData();
-console.log(`[Content] Personal data fetched successfully in ${Date.now() - fetchStart}ms`);
+	return {
+		// Personal information --> #hero section
+		name: personalData.displayName,
+		contactInfo: personalData.contact,
+		designation: personalData.title,
+		pronouns: personalData.pronouns,
+		website: personalData.website,
+		avatar: personalData.avatar,
+		data: personalData,
 
-// Personal Information --> #hero section
-export const name = personalData.displayName;
-export const contactInfo = personalData.contact;
-export const designation = personalData.title;
-export const location = personalData.location;
-export const pronouns = personalData.pronouns;
-export const website = personalData.website;
-export const avatar = personalData.avatar;
+		// About
+		about: personalData.bio,
+		cvAbout: personalData.shortBio ?? personalData.bio,
 
-export const data = personalData;
+		// Work Experience --> #work section
+		work: personalData.experience,
 
-// About
-export const about = personalData.bio;
-// Work Experience --> #work section
-export const work = personalData.experience;
+		// Projects --> #project section
+		projects: personalData.projects,
 
-// Projects --> #project section
-export const projects = personalData.projects;
+		// Education --> #education section
+		education: personalData.education,
 
-// Education --> #education section
-export const education = personalData.education;
+		// Contact --> #contact section
+		contact: [
+			{
+				source_name: 'Email',
+				source: personalData.contact.email,
+			},
+		],
 
-// Contact --> #contact section
-export const contact = [
-	{
-		source_name: 'Email',
-		source: personalData.contact.email,
-	},
-];
+		socialLinks: personalData.socialMedia,
 
-export const socialLinks = personalData.socialMedia;
+		// Certifications --> #certificate section
+		certificates: (personalData.credentials ?? []).map((item) => ({
+			title: item.name,
+			issued: '',
+			org: '',
+			description: item.description,
+			url: '',
+			icon: item.icon,
+		})),
 
-// Certifications --> #certificate section
+		// Blogs --> #blogs section
+		blogs: [] as Array<{
+			title: string;
+			date: string;
+			description: string;
+			url: string;
+			publisher: string;
+		}>,
 
-export const certificates = [];
+		// Achievements --> #achievement section
+		achievements: [] as Array<{
+			title: string;
+			year: string;
+			description: string;
+		}>,
 
-// Blogs --> #blogs section
-export const blogs = [];
+		interests: personalData.interests,
+		capabilities: personalData.capabilities ?? [],
+		credentials: personalData.credentials ?? [],
+		technicalInterests: personalData.technicalInterests,
+		skills: personalData.skills,
+		languages: personalData.languages,
+	};
+}
 
-// Achievements --> #achievement section
-export const achievements = [];
-
-export const interests = personalData.interests;
-
-export const skills = personalData.skills;
-
-export const languages = personalData.languages;
+export type Content = Awaited<ReturnType<typeof getContent>>;

@@ -41,8 +41,8 @@ npm run dev
 ## Tech Stack
 
 - [Astro](https://astro.build)
-- [TailwindCSS](https://tailwindcss.com/)
-- [AlpineJs](https://alpinejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/) with [daisyUI](https://daisyui.com/) components
+- [Alpine.js](https://alpinejs.dev/)
 
 ## Project Structure
 
@@ -64,7 +64,7 @@ npm run dev
 │   └── profile.jpg
 │   └── screenshot.jpeg
 ├── astro.config.mjs
-├── tailwind.config.cjs
+├── src/styles/tailwind.css
 ├── package.json
 ├── README.md
 ├── .gitignore

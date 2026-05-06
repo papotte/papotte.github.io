@@ -1,10 +1,15 @@
 ---
 import SpeedInsights from '@vercel/speed-insights/astro';
 
-import { data, name } from '@/content';
-const { title } = Astro.props;
+import '@styles/tailwind.css';
 
-const description = `${name} | ${data.title} | ${data.tagline}`;
+interface Props {
+	title: string;
+	name: string;
+	description: string;
+}
+
+const { title, name, description } = Astro.props as Props;
 ---
 
 <meta charset="utf-8" />

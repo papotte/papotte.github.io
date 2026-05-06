@@ -1,42 +1,30 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
-import Tag from './Tag.astro';
+interface Props {
+	icon: string;
+	title: string;
+	description: string;
+	iconStyle?: 'badge' | 'inline';
+	showDivider?: boolean;
+}
 
-const { start, end, title, description, url, tags = [], url_name, icon } = Astro.props;
-// Maybe add an option to not put start & end but just start?
+const { icon, title, description, iconStyle = 'badge', showDivider = false } = Astro.props as Props;
 ---
 
 <div
-	class="grid w-full grid-cols-3 grid-rows-1 place-items-center border-b-[1px] border-dashed border-text/25 p-2 py-8"
+	class="rounded-sm border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:shadow-md"
 >
-	<div class="self-start justify-self-start">
-		<p class="text-base text-text/50">
-			{start && `${start} – `}
-			{end}
-		</p>
-	</div>
-
-	<div class="self-start justify-self-start text-left">
-		<p class="text-lg text-text/80">{title}</p>
-		<p class="text-sm text-text/70">
-			<Fragment set:html={documentToHtmlString(description)} />
-		</p>
-		<sub class="flex flex-wrap gap-2 text-xs text-text/60">
-			{tags.map((item: string) => <Tag value={item} />)}
-		</sub>
-	</div>
-
-	<div class="self-start justify-self-end">
-		<a
-			href={url}
-			target="_blank"
-			class="flex items-center justify-center gap-2 text-right text-base text-text/60 hover:text-text/80"
-		>
-			{icon && <Icon name={icon} class="h-8 w-8" />}
-			{url_name}
-			{url !== '#' && <Icon name="ic:baseline-link-off" class="h-4 w-4" />}
-		</a>
-	</div>
+	{
+		iconStyle === 'badge' ? (
+			<div class="mb-5 flex h-12 w-12 items-center justify-center rounded-sm bg-pink-100 text-sky-800">
+				<Icon name={icon} class="h-6 w-6" />
+			</div>
+		) : (
+			<Icon name={icon} class="mb-4 h-6 w-6 text-sky-700" />
+		)
+	}
+	<h3 class="mb-3 text-xl font-semibold text-slate-900">{title}</h3>
+	{showDivider && <div class="mb-5 h-px w-full bg-slate-200" />}
+	<p class="text-sm leading-relaxed font-light text-slate-600">{description}</p>
 </div>

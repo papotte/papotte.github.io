@@ -1,8 +1,8 @@
 import type { EntryFieldTypes } from 'contentful';
 
-import type { DatedEntity, LocatedEntity } from './common';
+import type { DatedEntity } from './common';
 
-export interface Education extends DatedEntity, LocatedEntity {
+export interface Education extends DatedEntity {
 	institution: EntryFieldTypes.Text;
 	degree: EntryFieldTypes.Text;
 	description: EntryFieldTypes.RichText;

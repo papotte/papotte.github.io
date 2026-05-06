@@ -1,0 +1,10 @@
+---
+description: Do not edit generated build output under dist/; change source instead
+alwaysApply: true
+---
+
+# Do not modify `dist/` directories
+
+- **Never** edit, create, or delete files under any path named `dist/` (for example `packages/models/dist/`, `apps/web/dist/`). That output is **generated** by the build (`tsc`, Vite, etc.).
+- If types or runtime behavior need to change, edit **`src/`** (or the package’s source entry) and run the documented build script so `dist/` is regenerated locally—do not patch `dist/` by hand.
+- Do not suggest committing manual changes to `dist/` as a “fix”; fix the source and let the toolchain emit `dist/` again.

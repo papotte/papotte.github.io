@@ -1,216 +1,226 @@
 ---
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import type { Document as RichTextDocument } from '@contentful/rich-text-types';
 
-import { Icon } from 'astro-icon/components';
-
-import { Education, Interests, JobExperience, Language, Project, TechnicalSkills } from '@/model';
+import type { Credential, DatedEntity, Education, Interests, JobExperience, Language } from '@/model';
 import BaseHead from '@layouts/BaseHead.astro';
-import { IconMap } from '@lib/style-helper';
 import Print from '@components/Print.astro';
 
-import * as CONTENT from '@/content';
+import { getContent } from '@/content';
 
-import '@styles/cv.scss';
+const CONTENT = await getContent();
 
 const contactInfo = [
-	{
-		icon: IconMap['Email'],
-		label: CONTENT.contactInfo.email,
-	},
-	{
-		icon: IconMap['phone'],
-		label: CONTENT.contactInfo.phone,
-	},
-	{
-		icon: IconMap['website'],
-		label: CONTENT.website,
-	},
-];
+	CONTENT.contactInfo.email,
+	CONTENT.contactInfo.phone,
+	CONTENT.website,
+	CONTENT.socialLinks?.linkedin,
+].filter(Boolean);
 
-const skillCategories: Map<string, TechnicalSkills[]> = CONTENT.skills.reduce((acc, item: TechnicalSkills) => {
-	const keywords = item.keywords?.map((keyword) => keyword.trim()) || [];
-	keywords.forEach((keyword) => {
-		if (keyword === 'Development') {
-			return;
-		}
-		if (acc.has(keyword)) {
-			acc.set(keyword, [...acc.get(keyword), item]);
-		} else {
-			acc.set(keyword, [item]);
-		}
-	});
-	return acc;
-}, new Map());
-
-const skillList = Array.from(skillCategories.entries());
+const combinedSkills = [...new Set(CONTENT.skills.map((skill) => skill.name.trim()).filter(Boolean))].slice(0, 7);
 const title = `${CONTENT.name}'s CV`;
+
+const richTextToHtml = (value: unknown) => documentToHtmlString(value as RichTextDocument);
+
+const getDatesLabel = (entity: DatedEntity) => {
+	const start = entity.start;
+	const end = entity.end ? entity.end : 'Present';
+	if (start && end) {
+		return `${start} - ${end}`;
+	}
+	return start ?? end;
+};
 ---
 
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="print">
 	<head>
-		<BaseHead title={title} />
+		<BaseHead
+			title={title}
+			name={CONTENT.name}
+			description={`${CONTENT.name} | ${CONTENT.data.title} | ${CONTENT.data.tagline}`}
+		/>
 	</head>
-	<body>
-		<div class="main">
-			<div class="sticky top-4 text-end print:hidden">
-				<Print />
-			</div>
-			<div class="a4">
-				<div class="header">
-					<div class="title">
-						<h1>{CONTENT.name}</h1>
-						<p>{CONTENT.designation}</p>
-					</div>
+	<body class="bg-base-200 text-base-content p-4 antialiased md:p-8 print:bg-white print:p-0">
+		<div class="mx-auto mb-6 flex max-w-5xl items-center justify-end print:hidden">
+			<Print />
+		</div>
 
-					<div class="data">
+		<main
+			class="border-base-300 bg-base-100 mx-auto max-w-5xl overflow-hidden rounded-xl border shadow-md print:max-w-none print:rounded-none print:border-none print:shadow-none"
+		>
+			<header class="border-secondary bg-base-100 border-b-4 px-8 py-10 md:px-12 print:px-6 print:py-6">
+				<div
+					class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between print:flex-row print:items-start print:justify-between"
+				>
+					<div>
+						<h1 class="text-primary text-4xl font-semibold tracking-tight md:text-5xl print:text-3xl">
+							{CONTENT.name}
+						</h1>
 						{
-							CONTENT.location && (
-								<p>
-									{CONTENT.location.city}, {CONTENT.location.country}
+							CONTENT.data.tagline && (
+								<p class="text-md text-base-content/70 mt-3 max-w-2xl print:mt-2 print:text-xs">
+									{CONTENT.data.tagline}
 								</p>
 							)
 						}
-						{
-							contactInfo.map(({ icon, label }) => {
-								return (
-									<p class="contact">
-										{icon && <Icon name={icon} />}
-										{label}
-									</p>
-								);
-							})
-						}
 					</div>
+					<address class="text-base-content/75 text-sm not-italic md:text-right print:text-xs">
+						<ul class="space-y-1">
+							{contactInfo.map((entry) => <li>{entry}</li>)}
+						</ul>
+					</address>
 				</div>
+			</header>
 
-				<div class="section">
-					<div class="title"><h3>Work Experience</h3></div>
-					{
-						CONTENT.work.map((job: JobExperience) => {
-							return (
-								<div class="block">
-									<div class="date">
-										{job.start} – {job.end || 'present'}
-									</div>
-									<div class="information">
-										<div class="title">
-											<span class="font-bold">{job.position}</span>
-											<span>{job.company}</span>
-											{job.location?.city && <span>{job.location.city}</span>}
-											{job.location?.country && <span>{job.location.country}</span>}
-										</div>
-
-										<div class="description">
-											<Fragment set:html={documentToHtmlString(job.content)} />
-										</div>
-									</div>
-								</div>
-							);
-						})
-					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>Education</h3></div>
-					{
-						CONTENT.education.map((edu: Education) => {
-							return (
-								<div class="block">
-									<div class="date">
-										{edu.start && `${edu.start} –`} {edu.end}
-									</div>
-									<div class="information">
-										<div class="title">
-											<span class="font-bold">{edu.degree}</span>
-											<span class="italic">{edu.institution}</span>
-											{edu.location?.city && <span>{edu.location.city}</span>}
-											{edu.location?.country && <span>{edu.location.country}</span>}
-										</div>
-
-										<div class="description">
-											<Fragment set:html={documentToHtmlString(edu.description)} />
-										</div>
-									</div>
-								</div>
-							);
-						})
-					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>Language Skills</h3></div>
-					{
-						CONTENT.languages.map((item: Language) => {
-							return (
-								<div class="block">
-									<div class="date">{item.name}</div>
-									<div class="information">
-										<div class="title">
-											<span class="font-bold">{item.fluency}</span>
-										</div>
-									</div>
-								</div>
-							);
-						})
-					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>IT Skills</h3></div>
-					{
-						skillList.map(([label, item]) => {
-							return (
-								<div class="block">
-									<div class="date">{label}</div>
-									<div class="information">
-										<div class="title">
-											{item.map((skill) => (
-												<span>{skill.name}</span>
-											))}
-										</div>
-									</div>
-								</div>
-							);
-						})
-					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>Projects</h3></div>
-					{
-						CONTENT.projects.map((item: Project) => {
-							return (
-								<div class="block">
-									<div class="date">
-										{item.start && `${item.start} –`} {item.end}
-									</div>
-									<div class="information">
-										<div class="title">
-											<span class="font-bold">{item.title}</span>
-											<span class="italic">{item.team}</span>
-										</div>
-
-										<div class="description columns-2">
-											<Fragment set:html={documentToHtmlString(item.description)} />
-										</div>
-									</div>
-								</div>
-							);
-						})
-					}
-				</div>
-				<div class="section">
-					<div class="title"><h3>Interests</h3></div>
-					<div class="block">
-						<div class="date"></div>
-						<div class="information">
-							<div class="title">
-								{
-									CONTENT.interests.map((item: Interests) => {
-										return <span>{item.name}</span>;
-									})
-								}
-							</div>
+			<div
+				class="cv-grid grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] md:gap-8 md:px-12 print:gap-6 print:px-6 print:py-6"
+			>
+				<div class="space-y-10 print:space-y-6">
+					<section aria-labelledby="summary-title">
+						<h3
+							id="summary-title"
+							class="text-primary mb-4 text-xs font-semibold tracking-[0.18em] uppercase print:mb-2"
+						>
+							Professional Summary
+						</h3>
+						<div class="cv-description prose prose-sm text-base-content/80 print:prose-xs max-w-none">
+							<Fragment set:html={richTextToHtml(CONTENT.cvAbout)} />
 						</div>
-					</div>
+					</section>
+
+					<section aria-labelledby="experience-title">
+						<h3
+							id="experience-title"
+							class="text-primary mb-6 text-xs font-semibold tracking-[0.18em] uppercase print:mb-3"
+						>
+							Professional Experience
+						</h3>
+						<div class="relative space-y-8 print:space-y-5">
+							<span class="bg-secondary absolute top-1 bottom-1 left-[6px] w-px" aria-hidden="true"></span>
+							{
+								CONTENT.work.map((job: JobExperience) => (
+									<article class="cv-block relative pl-6 print:pl-6">
+										<span
+											class="border-secondary bg-base-100 absolute top-2 left-0 h-3 w-3 rounded-full border-2"
+											aria-hidden="true"
+										/>
+										<div class="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between print:flex-row print:items-baseline print:justify-between">
+											<h4 class="text-lg font-semibold print:text-base">{job.position}</h4>
+											<p class="text-base-content/60 text-xs whitespace-nowrap print:shrink-0 print:text-[10px]">
+												{getDatesLabel(job)}
+											</p>
+										</div>
+										<p class="text-primary mt-1 text-sm font-medium print:text-xs">{job.company}</p>
+										<div class="cv-description prose prose-sm text-base-content/80 print:prose-xs mt-3 max-w-none print:mt-2">
+											<Fragment set:html={richTextToHtml(job.content)} />
+										</div>
+									</article>
+								))
+							}
+						</div>
+					</section>
 				</div>
+
+				<aside
+					class="md:border-primary/40 print:border-primary space-y-8 md:border-l md:pl-6 print:space-y-6 print:border-l print:pl-4"
+				>
+					<section aria-labelledby="education-title">
+						<h3 id="education-title" class="text-primary mb-5 text-xs font-bold tracking-[0.18em] uppercase">
+							Education
+						</h3>
+						<div class="space-y-4 print:space-y-2">
+							{
+								CONTENT.education.map((edu: Education) => (
+									<article class="cv-block">
+										<h4 class="text-sm font-medium print:text-xs">{edu.degree}</h4>
+										<p class="text-base-content/70 text-xs print:text-[11px]">{edu.institution}</p>
+										<p class="text-base-content/60 text-xs print:text-[11px]">{getDatesLabel(edu)}</p>
+									</article>
+								))
+							}
+						</div>
+					</section>
+
+					{
+						CONTENT.credentials.length > 0 && (
+							<section aria-labelledby="certifications-title">
+								<h3 id="certifications-title" class="text-primary mb-5 text-xs font-bold tracking-[0.18em] uppercase">
+									Certifications
+								</h3>
+								<ul class="space-y-4 print:space-y-2">
+									{CONTENT.credentials.map((credential: Credential) => (
+										<li class="cv-block">
+											<h4 class="text-sm font-medium print:text-xs">{credential.name}</h4>
+											<p class="text-base-content/60 text-xs print:text-[11px]">{getDatesLabel(credential)}</p>
+										</li>
+									))}
+								</ul>
+							</section>
+						)
+					}
+
+					<section aria-labelledby="skills-title">
+						<h3 id="skills-title" class="text-primary mb-5 text-xs font-bold tracking-[0.18em] uppercase print:mb-3">
+							Skills
+						</h3>
+						<ul
+							class="cv-block text-base-content/80 list-disc space-y-1 pl-4 text-sm print:list-none print:space-y-0.5 print:pl-0 print:text-xs"
+						>
+							{combinedSkills.map((skill) => <li>{skill}</li>)}
+						</ul>
+					</section>
+
+					<section aria-labelledby="languages-title">
+						<h3 id="languages-title" class="text-primary mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+							Languages
+						</h3>
+						<ul class="text-base-content/80 space-y-1 text-sm print:text-xs">
+							{
+								CONTENT.languages.map((language: Language) => (
+									<li>
+										{language.name}: {language.fluency}
+									</li>
+								))
+							}
+						</ul>
+					</section>
+
+					<section aria-labelledby="interests-title">
+						<h3 id="interests-title" class="text-primary mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+							Interests
+						</h3>
+						<p class="text-base-content/80 text-sm print:text-xs">
+							{CONTENT.interests.map((interest: Interests) => interest.name).join(', ')}
+						</p>
+					</section>
+				</aside>
 			</div>
-		</div>
-	</body>
+		</main>
+	</body><style>
+		@media print {
+			@page {
+				size: A4;
+				margin: 10mm;
+			}
+
+			.cv-grid {
+				grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+			}
+
+			.cv-block {
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.cv-description {
+				font-size: 11px;
+				line-height: 1.35;
+			}
+
+			.cv-description :global(p) {
+				margin-top: 0.25rem;
+				margin-bottom: 0.25rem;
+			}
+		}
+	</style>
 </html>

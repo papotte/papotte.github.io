@@ -1,0 +1,77 @@
+---
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
+import type { TechnicalInterest, TechnicalSkills } from '@/model';
+import type { Content } from '@/content';
+
+interface Props {
+	about: Content['about'];
+	technicalInterests: Content['technicalInterests'];
+	name: Content['name'];
+	skills: Content['skills'];
+}
+
+const { about, technicalInterests, name, skills } = Astro.props as Props;
+const coreExpertise = (skills as TechnicalSkills[])
+	.filter((skill) => skill.keywords?.some((keyword) => keyword?.trim().toLowerCase() === 'core'))
+	.sort((a, b) => b.proficiency - a.proficiency)
+	.slice(0, 3);
+---
+
+<section id="about" class="bg-white">
+	<div class="mx-auto flex max-w-screen-xl flex-col gap-12 px-4 py-16 md:flex-row md:items-center md:px-8 lg:py-20">
+		<div class="w-full md:w-5/12">
+			<div class="aspect-[3/4] overflow-hidden rounded-sm border border-slate-100 bg-white shadow-sm">
+				<img
+					src="/ross-avatar.png"
+					alt={`${name} profile portrait`}
+					class="h-full w-full object-cover grayscale-[25%] transition duration-500 hover:grayscale-0"
+				/>
+			</div>
+		</div>
+
+		<div class="w-full space-y-8 md:w-7/12">
+			<div class="space-y-3">
+				<p class="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-sky-700 uppercase">
+					<span class="h-px w-10 bg-sky-800"></span>
+					The Narrative
+				</p>
+				<h2 class="text-3xl leading-tight font-light text-slate-900 md:text-4xl">Expert Generalist by Design.</h2>
+			</div>
+
+			<div class="text-base leading-7 text-slate-600">
+				<Fragment set:html={documentToHtmlString(about)} />
+			</div>
+
+			<div class="grid gap-10 border-t border-slate-200 pt-10 md:grid-cols-2">
+				<div class="space-y-4">
+					<p class="text-xs font-semibold tracking-[0.1em] text-sky-700 uppercase">Technical Interests</p>
+					<ul class="space-y-3 text-sm font-light text-slate-600">
+						{
+							(technicalInterests as TechnicalInterest[]).slice(0, 3).map((item) => (
+								<li class="flex items-center gap-2">
+									<span class="h-1.5 w-1.5 rounded-full bg-sky-700" />
+									{item.name}
+								</li>
+							))
+						}
+					</ul>
+				</div>
+
+				<div class="space-y-4">
+					<p class="text-xs font-semibold tracking-[0.1em] text-sky-700 uppercase">Core Expertise</p>
+					<ul class="space-y-3 text-sm font-light text-slate-600">
+						{
+							coreExpertise.map((skill) => (
+								<li class="flex items-center gap-2">
+									<span class="h-1.5 w-1.5 rounded-full bg-pink-400" />
+									{skill.name}
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

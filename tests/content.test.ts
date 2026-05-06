@@ -1,6 +1,6 @@
 import { afterAll, describe, expect, it, vi } from 'vitest';
 
-import * as content from '@/content';
+import { getContent } from '@/content';
 import type { PersonalData } from '@/model';
 
 vi.mock('@lib/contentful', () => ({
@@ -19,6 +19,7 @@ describe('content', () => {
 		vi.resetAllMocks();
 	});
 	it('should fetch personal data', async () => {
+		const content = await getContent();
 		expect(content.name).toEqual('Test');
 		expect(content.contactInfo.email).toEqual('test@info.com');
 		expect(content.contact.length).toEqual(1);

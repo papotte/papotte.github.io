@@ -1,0 +1,20 @@
+---
+description: Load .agents/rules pattern docs before editing components, contexts, hooks, or tests
+alwaysApply: true
+---
+
+# `.agents/rules` bridge
+
+Canonical implementation patterns live under **`.agents/rules/`**. **Read the relevant file(s) with the Read tool before you edit** code in the matching area, so changes follow project conventions (do not rely on memory or assumptions).
+
+| When you are changing… | Read first |
+|------------------------|------------|
+| React components, composition, `src/components/**` | `.agents/rules/components.md` |
+| React Context providers/consumers, global client state | `.agents/rules/contexts.md` |
+| Custom hooks (`use*`), hook-heavy modules | `.agents/rules/hooks.md` |
+| Tests, coverage, or user-facing behavior you are making testable | `.agents/rules/testing-requirements.md` |
+| Turbo task graph / `turbo.json`, root orchestration scripts, or other cross-cutting architecture that warrants an ADR | `.agents/rules/architecture-adrs.md` and `docs/adr/README.md` |
+
+If a task spans more than one row (for example a new hook used inside a new context), read **all** applicable rule files in the same pass before editing.
+
+For procedure and personas (Testing Library, Playwright, functions), still follow **`AGENTS.md`** and **`.agents/subagents/`** as referenced there.
