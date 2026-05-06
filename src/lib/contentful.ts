@@ -3,14 +3,17 @@ import { createClient } from 'contentful';
 import isEmpty from 'lodash.isempty';
 
 import type {
+	Capability,
 	ContentfulData,
 	ContentfulEntity,
+	Credential,
 	Education,
 	Interests,
 	JobExperience,
 	Language,
 	PersonalData,
 	Project,
+	TechnicalInterest,
 	TechnicalSkills,
 } from '@/model';
 
@@ -25,7 +28,16 @@ const query = {
 	'fields.name[match]': import.meta.env.NAME,
 };
 
-type ArrayProps = 'experience' | 'education' | 'projects' | 'languages' | 'skills' | 'interests';
+type ArrayProps =
+	| 'experience'
+	| 'education'
+	| 'projects'
+	| 'languages'
+	| 'skills'
+	| 'interests'
+	| 'technicalInterests'
+	| 'capabilities'
+	| 'credentials';
 
 export const parseEntryPropArray = async <T extends ContentfulData>(
 	personalData: PersonalData,
@@ -38,6 +50,10 @@ export const parseEntryPropArray = async <T extends ContentfulData>(
 	return await Promise.all(prop.map((e) => TransformData<T>(e)));
 };
 
+const transformEntryArray = async <T extends ContentfulData>(entries?: unknown[]): Promise<T[]> => {
+	return await Promise.all((entries ?? []).map((entry) => TransformData<T>(entry)));
+};
+
 export const parseEntry = async (item: Partial<ContentfulEntity<PersonalData>>): Promise<PersonalData> => {
 	console.log('[Contentful] Starting parseEntry...');
 	const personalData = await TransformData<PersonalData>(item);
@@ -46,11 +62,14 @@ export const parseEntry = async (item: Partial<ContentfulEntity<PersonalData>>):
 	}
 	console.log('[Contentful] Personal data transformed, parsing nested data...');
 	const experience = await parseEntryPropArray<JobExperience>(personalData, 'experience');
-	const education = await Promise.all(personalData.education.map((e) => TransformData<Education>(e)));
-	const interests = await Promise.all(personalData.interests.map((e) => TransformData<Interests>(e)));
-	const skills = await Promise.all(personalData.skills.map((e) => TransformData<TechnicalSkills>(e)));
-	const languages = await Promise.all(personalData.languages.map((e) => TransformData<Language>(e)));
-	const projects = await Promise.all(personalData.projects.map((e) => TransformData<Project>(e)));
+	const education = await transformEntryArray<Education>(personalData.education);
+	const interests = await transformEntryArray<Interests>(personalData.interests);
+	const capabilities = await transformEntryArray<Capability>(personalData.capabilities);
+	const credentials = await transformEntryArray<Credential>(personalData.credentials);
+	const technicalInterests = await transformEntryArray<TechnicalInterest>(personalData.technicalInterests);
+	const skills = await transformEntryArray<TechnicalSkills>(personalData.skills);
+	const languages = await transformEntryArray<Language>(personalData.languages);
+	const projects = await transformEntryArray<Project>(personalData.projects);
 	console.log('[Contentful] All nested data parsed, sorting...');
 	return {
 		...personalData,
@@ -58,17 +77,19 @@ export const parseEntry = async (item: Partial<ContentfulEntity<PersonalData>>):
 		education: education.sort(sortByFieldAsc('endDate')),
 		projects: projects.sort(sortByFieldAsc('endDate')),
 		interests: interests,
+		capabilities: capabilities,
+		credentials: credentials,
+		technicalInterests: technicalInterests,
 		skills: skills.sort(sortByFieldAsc('proficiency')),
 		languages: languages,
 	};
 };
 
-export const getPersonalData = async () => {
+const fetchFromContentful = async (): Promise<PersonalData> => {
 	const startTime = Date.now();
-	console.log('[Contentful] Starting getPersonalData...');
+	console.log('[Contentful] Starting fetchFromContentful...');
 
 	try {
-		// Log environment variable availability (without exposing values)
 		console.log('[Contentful] Environment check:', {
 			hasSpaceId: !!import.meta.env.CONTENTFUL_SPACE_ID,
 			hasDeliveryToken: !!import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
@@ -130,6 +151,40 @@ export const getPersonalData = async () => {
 			name: error instanceof Error ? error.name : 'Unknown',
 			stack: error instanceof Error ? error.stack : undefined,
 		});
+		throw error;
+	}
+};
+
+// In-memory cache for the last successful Contentful fetch.
+// In dev: TTL=0 forces re-fetch on every request; cache is consulted only as a fallback when the live fetch fails.
+// In prod (warm Vercel Lambda): TTL=5min lets repeated requests reuse the cached payload, with the same fallback on failure.
+const PROD_TTL_MS = 5 * 60 * 1000;
+let cachedData: PersonalData | null = null;
+let cachedAt = 0;
+
+export const __resetContentfulCache = () => {
+	cachedData = null;
+	cachedAt = 0;
+};
+
+export const getPersonalData = async (): Promise<PersonalData> => {
+	const ttl = import.meta.env.DEV ? 0 : PROD_TTL_MS;
+
+	if (cachedData && Date.now() - cachedAt < ttl) {
+		console.log('[Contentful] Cache hit (within TTL), skipping fetch');
+		return cachedData;
+	}
+
+	try {
+		const fresh = await fetchFromContentful();
+		cachedData = fresh;
+		cachedAt = Date.now();
+		return fresh;
+	} catch (error) {
+		if (cachedData) {
+			console.warn('[Contentful] Live fetch failed; serving last successful cached data', error);
+			return cachedData;
+		}
 		throw error;
 	}
 };

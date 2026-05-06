@@ -1,30 +1,24 @@
-import { TransformData, dataTransformer } from '@lib/contentful-transformer';
-import type { Geolocator } from '@lib/geolocation';
+import { TransformData } from '@lib/contentful-transformer';
 import { describe, expect, test } from 'vitest';
 
-import type { Address, AvatarEntity, DatedEntity, LocatedEntity, Position } from '@/model';
-
-const fakeGeolocatorWith: (x: Partial<Address>) => Geolocator = (x) =>
-	({
-		getAddress: async (_position: Position): Promise<Address> => {
-			return x as Address;
-		},
-	}) as unknown as Geolocator;
+import type { AvatarEntity, DatedEntity } from '@/model';
 
 describe('contentful-transformer', () => {
-	test('Transform location', async () => {
+	test('strips location from transformed fields', async () => {
 		const input = {
 			fields: {
+				name: 'Test',
 				location: {
 					lat: 52.52,
 					lon: 13.40495,
+					city: 'Berlin',
 				},
 			},
 		};
 
-		const result = await dataTransformer(fakeGeolocatorWith({ city: 'Test City' }))<LocatedEntity>(input);
-
-		expect(result.location?.city).eq('Test City');
+		const result = await TransformData<{ name?: string; location?: unknown }>(input);
+		expect(result).not.toHaveProperty('location');
+		expect(result.name).eq('Test');
 	});
 
 	test('Transform start date', async () => {

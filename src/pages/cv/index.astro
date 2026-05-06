@@ -3,14 +3,16 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import { Icon } from 'astro-icon/components';
 
-import { Education, Interests, JobExperience, Language, Project, TechnicalSkills } from '@/model';
+import type { Education, Interests, JobExperience, Language, Project, TechnicalSkills } from '@/model';
 import BaseHead from '@layouts/BaseHead.astro';
 import { IconMap } from '@lib/style-helper';
 import Print from '@components/Print.astro';
 
-import * as CONTENT from '@/content';
+import { getContent } from '@/content';
 
 import '@styles/cv.scss';
+
+const CONTENT = await getContent();
 
 const contactInfo = [
 	{
@@ -48,7 +50,11 @@ const title = `${CONTENT.name}'s CV`;
 
 <html lang="en" data-theme="light">
 	<head>
-		<BaseHead title={title} />
+		<BaseHead
+			title={title}
+			name={CONTENT.name}
+			description={`${CONTENT.name} | ${CONTENT.data.title} | ${CONTENT.data.tagline}`}
+		/>
 	</head>
 	<body>
 		<div class="main">
@@ -63,13 +69,6 @@ const title = `${CONTENT.name}'s CV`;
 					</div>
 
 					<div class="data">
-						{
-							CONTENT.location && (
-								<p>
-									{CONTENT.location.city}, {CONTENT.location.country}
-								</p>
-							)
-						}
 						{
 							contactInfo.map(({ icon, label }) => {
 								return (
@@ -96,8 +95,6 @@ const title = `${CONTENT.name}'s CV`;
 										<div class="title">
 											<span class="font-bold">{job.position}</span>
 											<span>{job.company}</span>
-											{job.location?.city && <span>{job.location.city}</span>}
-											{job.location?.country && <span>{job.location.country}</span>}
 										</div>
 
 										<div class="description">
@@ -122,8 +119,6 @@ const title = `${CONTENT.name}'s CV`;
 										<div class="title">
 											<span class="font-bold">{edu.degree}</span>
 											<span class="italic">{edu.institution}</span>
-											{edu.location?.city && <span>{edu.location.city}</span>}
-											{edu.location?.country && <span>{edu.location.country}</span>}
 										</div>
 
 										<div class="description">

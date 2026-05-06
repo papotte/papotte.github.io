@@ -1,50 +1,76 @@
 ---
-import { name, website } from '@/content';
+interface Props {
+	name: string;
+	website: string;
+}
+
+const { name, website } = Astro.props as Props;
 
 const pages = [
 	{ title: 'About', href: '#about' },
-	{ title: 'Skills', href: '#skills' },
-	{ title: 'Experience', href: '#experience' },
-	{ title: 'Contact', href: '#contact' },
+	{ title: 'Stack', href: '#skills' },
+	{ title: 'Case Studies', href: '#projects' },
 ];
 ---
 
-<div class="navbar bg-base-100 mx-auto w-full max-w-screen-xl px-4 shadow-sm">
-	<div class="navbar-start">
-		<div class="dropdown">
-			<div tabindex="0" role="button" class="btn btn-ghost md:hidden" aria-label="Open menu">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					aria-hidden="true"
+<header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl">
+	<nav class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-4 py-4 md:px-8">
+		<div class="navbar-start w-auto">
+			<div class="dropdown">
+				<div
+					tabindex="0"
+					role="button"
+					class="btn btn-ghost btn-sm me-2 text-slate-700 md:hidden"
+					aria-label="Open menu"
 				>
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-				</svg>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						aria-hidden="true"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+				</div>
+				<ul
+					tabindex="-1"
+					class="menu menu-sm dropdown-content rounded-box z-50 mt-3 w-52 border border-slate-200 bg-white p-2 shadow-lg"
+				>
+					{
+						pages.map((page) => (
+							<li>
+								<a href={page.href} class="text-slate-700 hover:bg-sky-50 hover:text-sky-700">
+									{page.title}
+								</a>
+							</li>
+						))
+					}
+				</ul>
 			</div>
-			<ul tabindex="-1" class="menu menu-sm dropdown-content rounded-box bg-base-100 z-50 mt-3 w-52 p-2 shadow">
+			<a href={website} class="text-lg font-semibold tracking-wide text-sky-800">{name}</a>
+		</div>
+		<div class="navbar-center hidden md:flex">
+			<ul class="menu menu-horizontal gap-1 px-1">
 				{
 					pages.map((page) => (
 						<li>
-							<a href={page.href}>{page.title}</a>
+							<a
+								href={page.href}
+								class="rounded-none border-b border-transparent text-slate-600 hover:border-sky-700 hover:bg-transparent hover:text-sky-800"
+							>
+								{page.title}
+							</a>
 						</li>
 					))
 				}
 			</ul>
 		</div>
-		<a href={website} class="btn btn-ghost text-xl">{name}</a>
-	</div>
-	<div class="navbar-center hidden md:flex">
-		<ul class="menu menu-horizontal px-1">
-			{
-				pages.map((page) => (
-					<li>
-						<a href={page.href}>{page.title}</a>
-					</li>
-				))
-			}
-		</ul>
-	</div>
-</div>
+		<div class="hidden md:block">
+			<a href="#contact" class="btn btn-outline btn-primary px-4 text-xs font-semibold tracking-wider">
+				GET IN TOUCH
+			</a>
+		</div>
+	</nav>
+</header>

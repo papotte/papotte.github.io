@@ -5,8 +5,6 @@ import type { ContentfulEntity, PersonalData } from '@/model';
 
 import response from './contentful.mock.json';
 
-vi.mock('@lib/geolocation');
-
 describe('contentful', () => {
 	let rawData: PersonalData;
 
@@ -20,19 +18,22 @@ describe('contentful', () => {
 	test('should parse basic data', async () => {
 		const result = await parseEntry(response as unknown as ContentfulEntity<PersonalData>);
 
-		expect(result.title).toEqual('Engineer');
+		expect(result.title).toEqual('Product-Focused Software Engineer');
 		expect(result.avatar).toEqual('avatar.png');
 		expect(result.experience).toHaveLength(1);
 		expect(result.education).toHaveLength(2);
-		expect(result.languages).toHaveLength(3);
+		expect(result.languages).toHaveLength(4);
 		expect(result.skills).toHaveLength(1);
 		expect(result.interests).toHaveLength(6);
+		expect(result.technicalInterests).toHaveLength(3);
+		expect(result.capabilities).toHaveLength(3);
+		expect(result.credentials).toHaveLength(2);
 		expect(result.projects).toHaveLength(1);
 	});
 
 	test('should parse experience', async () => {
 		const experience = await parseEntryPropArray(rawData, 'experience');
-		expect(experience[0].start).toEqual('Mar 2022');
+		expect(experience[0].start).toEqual('Jan 2025');
 	});
 
 	test('should parse education', async () => {
@@ -43,8 +44,8 @@ describe('contentful', () => {
 
 	test('should parse projects', async () => {
 		const projects = await parseEntryPropArray(rawData, 'projects');
-		expect(projects[0].start).toEqual('Feb 2011');
-		expect(projects[0].end).toEqual('Dec 2013');
+		expect(projects[0].start).toEqual('Jan 2025');
+		expect(projects[0].end).toBeUndefined();
 	});
 
 	test('should sort by custom field', async () => {

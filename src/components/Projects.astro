@@ -1,0 +1,195 @@
+---
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import type { Document } from '@contentful/rich-text-types';
+
+import type { Project } from '@/model';
+
+const { value = [] } = Astro.props as { value: Project[] };
+
+const projectPlaceholders = ['/project-thumb-slate.svg', '/project-thumb-oxide.svg'] as const;
+
+const formatProjectRange = (project: Project): string => {
+	const startYear = project.startDate?.getFullYear();
+	const endYear = project.endDate?.getFullYear();
+
+	if (!startYear) return '';
+	return `${startYear} - ${endYear ?? 'Present'}`;
+};
+---
+
+<section id="projects" class="bg-white">
+	<div class="mx-auto flex max-w-screen-xl flex-col gap-10 px-4 py-16 md:px-8 lg:py-20">
+		<div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+			<div class="space-y-3">
+				<p class="text-xs font-semibold tracking-[0.2em] text-sky-700 uppercase">Select Work</p>
+				<h2 class="text-3xl leading-tight font-light text-slate-900 md:text-4xl">Case Studies / Projects</h2>
+			</div>
+			{
+				value.length > 1 && (
+					<div class="hidden items-center gap-3 md:flex">
+						<button
+							type="button"
+							data-carousel-prev
+							class="btn btn-circle btn-outline btn-primary btn-sm"
+							aria-label="Previous project"
+						>
+							<span aria-hidden="true">&larr;</span>
+						</button>
+						<button
+							type="button"
+							data-carousel-next
+							class="btn btn-circle btn-outline btn-primary btn-sm"
+							aria-label="Next project"
+						>
+							<span aria-hidden="true">&rarr;</span>
+						</button>
+					</div>
+				)
+			}
+		</div>
+
+		<div class="relative" data-project-carousel>
+			<div
+				class="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2"
+				data-carousel-track
+				role="region"
+				aria-label="Projects carousel"
+				tabindex="0"
+			>
+				{
+					value.map((project: Project, index: number) => (
+						<article class="group relative w-[90%] shrink-0 snap-start overflow-hidden rounded-sm border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:shadow-md md:w-[calc(50%-0.75rem)]">
+							<div class="relative mb-5 aspect-video overflow-hidden rounded-sm bg-sky-50">
+								<img
+									src={
+										project.projectImage?.fields?.file?.url || projectPlaceholders[index % projectPlaceholders.length]
+									}
+									alt=""
+									class="h-full w-full object-cover grayscale transition duration-700 group-hover:grayscale-0"
+									loading="lazy"
+									decoding="async"
+								/>
+								<div class="absolute inset-0 bg-gradient-to-br from-sky-600/10 via-pink-500/5 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+							</div>
+
+							<div class="mb-3 flex items-start gap-3">
+								<div>
+									<p class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-sky-700 uppercase">
+										<span class="h-px w-4 bg-sky-700" />
+										{project.organization || project.team || 'Portfolio'}
+									</p>
+									{project.organizationDescription && (
+										<p class="mt-1 text-sm leading-6 text-slate-500">{project.organizationDescription}</p>
+									)}
+								</div>
+								<p class="ml-auto text-xs font-semibold tracking-wide text-slate-500 uppercase">
+									{formatProjectRange(project)}
+								</p>
+							</div>
+
+							<h3 class="mb-3 text-xl font-semibold text-slate-900">{project.title}</h3>
+							{project.team && <p class="mb-4 text-sm text-slate-600">{project.team}</p>}
+
+							{project.description && (
+								<div class="text-sm leading-7 text-slate-600">
+									<Fragment set:html={documentToHtmlString(project.description as unknown as Document)} />
+								</div>
+							)}
+
+							{project.projectUrl && (
+								<div class="mt-5 flex justify-end">
+									<a
+										href={project.projectUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="btn btn-outline btn-primary px-4 text-xs font-semibold tracking-wide"
+									>
+										View Live Project
+									</a>
+								</div>
+							)}
+						</article>
+					))
+				}
+			</div>
+		</div>
+		{
+			value.length > 1 && (
+				<div
+					class="flex items-center justify-center gap-2"
+					data-carousel-dots
+					role="tablist"
+					aria-label="Project slides"
+				>
+					{value.map((project, index) => (
+						<button
+							type="button"
+							role="tab"
+							aria-label={`Go to project ${index + 1}: ${project.title}`}
+							aria-selected={index === 0 ? 'true' : 'false'}
+							data-carousel-dot
+							data-index={index}
+							class={`h-2.5 w-2.5 rounded-full transition ${index === 0 ? 'bg-sky-700' : 'bg-slate-300 hover:bg-slate-400'}`}
+						/>
+					))}
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<script>
+	const carousels = Array.from(document.querySelectorAll('[data-project-carousel]'));
+
+	for (const carousel of carousels) {
+		const track = carousel.querySelector('[data-carousel-track]');
+		if (!(track instanceof HTMLElement)) continue;
+
+		const section = carousel.closest('section');
+		const prevButton = section?.querySelector('[data-carousel-prev]');
+		const nextButton = section?.querySelector('[data-carousel-next]');
+		const dots = Array.from(section?.querySelectorAll('[data-carousel-dot]') ?? []);
+		const slides = Array.from(track.children).filter((el) => el instanceof HTMLElement);
+		let currentIndex = 0;
+
+		const updateDots = (index: number) => {
+			for (const dot of dots) {
+				if (!(dot instanceof HTMLButtonElement)) continue;
+				const dotIndex = Number(dot.dataset.index ?? '-1');
+				const active = dotIndex === index;
+				dot.setAttribute('aria-selected', active ? 'true' : 'false');
+				dot.classList.toggle('bg-sky-700', active);
+				dot.classList.toggle('bg-slate-300', !active);
+			}
+		};
+
+		const scrollToIndex = (index: number) => {
+			const clamped = Math.max(0, Math.min(index, slides.length - 1));
+			const target = slides[clamped];
+			if (!(target instanceof HTMLElement)) return;
+			track.scrollTo({ left: target.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+			currentIndex = clamped;
+			updateDots(currentIndex);
+		};
+
+		prevButton?.addEventListener('click', () => scrollToIndex(currentIndex - 1));
+		nextButton?.addEventListener('click', () => scrollToIndex(currentIndex + 1));
+
+		for (const dot of dots) {
+			dot.addEventListener('click', () => {
+				const targetIndex = Number(dot.getAttribute('data-index') ?? 0);
+				scrollToIndex(targetIndex);
+			});
+		}
+
+		track.addEventListener('scroll', () => {
+			const slideWidth = slides[0]?.clientWidth ?? 1;
+			const gap = 24;
+			const estimatedIndex = Math.round(track.scrollLeft / Math.max(slideWidth + gap, 1));
+			if (estimatedIndex !== currentIndex) {
+				currentIndex = Math.max(0, Math.min(estimatedIndex, slides.length - 1));
+				updateDots(currentIndex);
+			}
+		});
+	}
+</script>

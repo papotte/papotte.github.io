@@ -1,0 +1,23 @@
+---
+import type { Content } from '@/content';
+import Card from './Card.astro';
+
+interface Props {
+	value: Content['capabilities'];
+}
+
+const { value: services = [] } = Astro.props as Props;
+---
+
+<section id="services" class="bg-slate-50">
+	<div class="mx-auto flex max-w-screen-xl flex-col gap-10 px-4 py-16 md:px-8 lg:py-20">
+		<div class="space-y-3">
+			<p class="text-xs font-semibold tracking-[0.2em] text-sky-700 uppercase">Capabilities</p>
+			<h2 class="text-3xl leading-tight font-light text-slate-900 md:text-4xl">What I can help you with</h2>
+		</div>
+
+		<div class="grid gap-6 md:grid-cols-3">
+			{services.map((service) => <Card icon={service.icon} title={service.name} description={service.description} />)}
+		</div>
+	</div>
+</section>

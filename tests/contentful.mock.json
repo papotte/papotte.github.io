@@ -4,8 +4,50 @@
 		"pronouns": "they/them",
 		"displayName": "Test Name",
 		"website": "https://papotte.dev",
-		"tagline": "A tagline",
-		"title": "Engineer",
+		"tagline": "From MVP to resilient software: practical AI enablement, steady growth, and risk-aware execution.",
+		"title": "Product-Focused Software Engineer",
+		"bio": {
+			"nodeType": "document",
+			"data": {},
+			"content": [
+				{
+					"nodeType": "paragraph",
+					"data": {},
+					"content": [
+						{
+							"nodeType": "text",
+							"value": "Product-focused software engineer turning complex ideas into products people can actually use.",
+							"marks": [],
+							"data": {}
+						}
+					]
+				},
+				{
+					"nodeType": "paragraph",
+					"data": {},
+					"content": [
+						{
+							"nodeType": "text",
+							"value": "I help teams move from MVP to production-ready software through practical AI enablement, risk-aware execution, and engineering decisions that balance speed with long-term maintainability.",
+							"marks": [],
+							"data": {}
+						}
+					]
+				},
+				{
+					"nodeType": "paragraph",
+					"data": {},
+					"content": [
+						{
+							"nodeType": "text",
+							"value": "Alongside product work, I contribute to the tech community through speaking and moderation focused on creating safer, more inclusive spaces in tech.",
+							"marks": [],
+							"data": {}
+						}
+					]
+				}
+			]
+		},
 		"avatar": {
 			"fields": {
 				"title": "ross-avatar",
@@ -39,15 +81,33 @@
 		"experience": [
 			{
 				"fields": {
-					"company": "Test Company",
-					"position": "Senior Job",
-					"startDate": "2022-03-07T00:00+00:00",
+					"company": "3keel / Landscape Enterprise Networks (LENs)",
+					"position": "Senior Software Engineer (Contractor)",
+					"startDate": "2025-01-08T00:00+00:00",
 					"location": {
 						"lon": 13.40495,
 						"lat": 52.52
 					},
-					"website": "https://www.example.com/",
-					"tags": ["tag1", "tag2"]
+					"description": {
+						"nodeType": "document",
+						"data": {},
+						"content": [
+							{
+								"nodeType": "paragraph",
+								"data": {},
+								"content": [
+									{
+										"nodeType": "text",
+										"value": "Freelance software engineer shipping platform features for funding workflows, reporting capabilities, and reliable delivery for a small, fast-moving team.",
+										"marks": [],
+										"data": {}
+									}
+								]
+							}
+						]
+					},
+					"website": "https://www.3keel.com/",
+					"tags": ["Funding workflows", "Reporting", "Platform reliability", "Fast iteration"]
 				}
 			}
 		],
@@ -94,6 +154,13 @@
 					"name": "German",
 					"code": "de",
 					"fluency": "Fluent"
+				}
+			},
+			{
+				"fields": {
+					"name": "Portuguese",
+					"code": "pt",
+					"fluency": "Limited working proficiency"
 				}
 			}
 		],
@@ -144,6 +211,65 @@
 				}
 			}
 		],
+		"technicalInterests": [
+			{
+				"fields": {
+					"name": "Distributed systems",
+					"icon": "ic:round-hub"
+				}
+			},
+			{
+				"fields": {
+					"name": "User research",
+					"icon": "ic:round-psychology"
+				}
+			},
+			{
+				"fields": {
+					"name": "AI product engineering",
+					"icon": "ic:round-auto-awesome"
+				}
+			}
+		],
+		"capabilities": [
+			{
+				"fields": {
+					"name": "System Architecture",
+					"description": "Designing resilient systems, cloud-ready foundations, and scalable delivery workflows.",
+					"icon": "mdi:application-brackets-outline"
+				}
+			},
+			{
+				"fields": {
+					"name": "Full-stack Engineering",
+					"description": "Building complete product systems end-to-end, with strong frontend execution and UX quality.",
+					"icon": "ic:round-code-off"
+				}
+			},
+			{
+				"fields": {
+					"name": "Technical Consulting",
+					"description": "Helping teams make practical trade-offs: architecture decisions, risk-aware execution, quality culture, and delivery discipline.",
+					"icon": "ic:round-settings-suggest"
+				}
+			}
+		],
+		"credentials": [
+			{
+				"fields": {
+					"name": "AWS Certified Solutions Architect",
+					"description": "Professional grade certification validating advanced technical skills and experience in designing distributed applications and systems on the AWS platform.",
+					"icon": "material-symbols:cloud-done-outline-rounded"
+				}
+			},
+			{
+				"fields": {
+					"name": "Google Professional Cloud Architect",
+					"description": "Certification demonstrating the ability to design, develop, and manage robust, secure, scalable, highly available, and dynamic solutions to drive business objectives.",
+					"icon": "material-symbols:verified-outline-rounded"
+				}
+			}
+		],
 		"socialMedia": {
 			"github": "https://github.com/papotte",
 			"linkedin": "https://www.linkedin.com/in/r-bermudez",
@@ -152,10 +278,28 @@
 		"projects": [
 			{
 				"fields": {
-					"title": "AIESEC",
-					"team": "Sales Team Manager, IT Team Manager, Project Development",
-					"startDate": "2011-02-01T00:00+00:00",
-					"endDate": "2013-12-31T00:00+00:00"
+					"title": "TimeWise",
+					"organization": "Side project",
+					"team": "Solo builder",
+					"startDate": "2025-01-01T00:00+00:00",
+					"description": {
+						"nodeType": "document",
+						"data": {},
+						"content": [
+							{
+								"nodeType": "paragraph",
+								"data": {},
+								"content": [
+									{
+										"nodeType": "text",
+										"value": "A practical time-tracking product focused on low-friction logging, clear review workflows, and incremental product evolution based on real usage.",
+										"marks": [],
+										"data": {}
+									}
+								]
+							}
+						]
+					}
 				}
 			}
 		]

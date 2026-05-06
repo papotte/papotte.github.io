@@ -1,0 +1,78 @@
+---
+import Card from '@/components/Card.astro';
+
+import type { TechnicalSkills } from '@/model';
+import type { Content } from '@/content';
+
+interface Props {
+	skills: Content['skills'];
+}
+
+const { skills } = Astro.props as Props;
+
+const cards = [
+	{
+		title: 'Application Engineering',
+		keywords: ['Framework'],
+		icon: 'ic:round-app-registration',
+		fallbackCount: 4,
+	},
+	{
+		title: 'Cloud Infrastructure',
+		keywords: ['Cloud'],
+		icon: 'ic:round-settings-suggest',
+		fallbackCount: 4,
+	},
+	{
+		title: 'Core Languages',
+		keywords: ['Language'],
+		icon: 'ic:round-code-off',
+		fallbackCount: 4,
+	},
+];
+
+const byKeywords = (items: TechnicalSkills[], matchKeywords: string[]) => {
+	const wanted = new Set(matchKeywords.map((k) => k.trim()).filter(Boolean));
+	const matched = items.filter((s) => s.keywords?.some((k) => wanted.has(k.trim())));
+	return Array.from(
+		new Map(
+			matched.map((s) => {
+				return [s.name, s];
+			})
+		).values()
+	);
+};
+
+const skillNamesInDataOrder = (items: TechnicalSkills[]) => items.map((s) => s.name);
+---
+
+<section id="skills" class="bg-white">
+	<div class="mx-auto flex max-w-screen-xl flex-col gap-12 px-4 py-16 md:px-8 lg:py-20">
+		<div class="space-y-3">
+			<p class="text-xs font-semibold tracking-[0.2em] text-sky-700 uppercase">The Stack</p>
+			<h2 class="text-3xl leading-tight font-light text-slate-900 md:text-4xl">The Technical Arsenal</h2>
+		</div>
+
+		<div class="grid gap-6 md:grid-cols-3">
+			{
+				cards.map((card) => {
+					const bucket = byKeywords(skills as TechnicalSkills[], card.keywords);
+					const names =
+						bucket.length > 0
+							? bucket.map((s) => s.name).slice(0, card.fallbackCount)
+							: skillNamesInDataOrder(skills as TechnicalSkills[]).slice(0, card.fallbackCount);
+
+					return (
+						<Card
+							icon={card.icon}
+							title={card.title}
+							description={`Examples: ${names.join(', ')}`}
+							iconStyle="inline"
+							showDivider={true}
+						/>
+					);
+				})
+			}
+		</div>
+	</div>
+</section>

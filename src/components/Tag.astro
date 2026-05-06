@@ -1,9 +1,0 @@
----
-import { buttonColorLookup } from '@lib/style-helper';
-
-const { value, color = 'accent' } = Astro.props;
----
-
-<span class={`badge badge-sm ${buttonColorLookup[color]}`}>
-	{value}
-</span>

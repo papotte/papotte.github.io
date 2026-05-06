@@ -1,17 +1,47 @@
 ---
-import { name } from '@/content';
+import { getContent } from '@/content';
 import BaseHead from '@layouts/BaseHead.astro';
-const title = `CV | ${name}`;
+
+const { data, name } = await getContent();
+const title = `404 | ${name}`;
+const description = `Page not found | ${name} | ${data.title}`;
 ---
 
 <html lang="en" data-theme="light">
 	<head>
-		<BaseHead title={title} />
+		<BaseHead title={title} name={name} description={description} />
 	</head>
-	<body class="bg-base-100 text-base-content flex min-h-screen flex-col items-center py-24">
-		<div class="w-48 md:w-96">
-			<img src="error-404.svg" alt="Error 404 represented by cat" class="h-full w-full object-cover" />
-		</div>
-		<a href="/" class="btn btn-accent w-fit font-medium"> Back to safety </a>
+	<body class="min-h-screen bg-slate-100 text-slate-900">
+		<main class="mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-20 md:px-8">
+			<div class="grid w-full grid-cols-1 items-center gap-10 md:grid-cols-12">
+				<div class="md:col-span-6">
+					<div class="relative w-full overflow-hidden rounded-sm border border-white/10 bg-slate-900/30 shadow-2xl">
+						<img
+							src="/server-room.png"
+							alt="Server room with steel blue and orchid lighting"
+							class="h-auto w-full object-cover opacity-90 grayscale transition duration-1000 hover:grayscale-0"
+							loading="lazy"
+						/>
+						<div class="pointer-events-none absolute inset-0 bg-[#4682B4]/15" aria-hidden="true"></div>
+					</div>
+				</div>
+				<div class="md:col-span-6">
+					<p class="mb-3 text-xs font-semibold tracking-[0.2em] text-fuchsia-700 uppercase">System alert</p>
+					<h1 class="text-5xl font-extrabold tracking-tight text-sky-800 md:text-6xl">
+						404 <span class="font-light text-slate-400">/</span><br />
+						<span class="text-slate-900">Lost in the System</span>
+					</h1>
+					<p class="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">
+						The page you are looking for does not exist or has moved. Head back to the portfolio and keep exploring.
+					</p>
+					<div class="mt-8 flex flex-col gap-4 sm:flex-row">
+						<a href="/" class="btn btn-primary px-6 text-xs font-semibold tracking-wider"> Back to Home </a>
+						<a href="/#projects" class="btn btn-outline btn-primary px-6 text-xs font-semibold tracking-wider">
+							View Projects
+						</a>
+					</div>
+				</div>
+			</div>
+		</main>
 	</body>
 </html>
